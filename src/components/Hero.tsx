@@ -124,7 +124,7 @@ export default function Hero(): React.ReactElement {
           that turns your AI agents into characters in a pixel art office.
         </p>
         <div className={styles.heroButtons}>
-          <Link className={styles.heroBtnPrimary} to="/introduction/getting-started">
+          <Link className={styles.heroBtnPrimary} to="/start/install">
             Get Started
           </Link>
           <Link
