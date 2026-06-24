@@ -7,13 +7,13 @@ const features = [
     title: 'Get Started',
     description:
       'Install the extension, set up Claude Code, and spawn your first agent in minutes.',
-    link: '/introduction/getting-started',
+    link: '/start/install',
   },
   {
     title: 'Assets',
     description:
       'Explore characters, furniture, walls, and floors — or create your own custom asset packs.',
-    link: '/assets/overview',
+    link: '/build/assets/overview',
   },
   {
     title: 'Contributing',
