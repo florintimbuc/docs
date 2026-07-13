@@ -4,15 +4,29 @@ sidebar_position: 2
 
 # Install
 
-Two surfaces ship today: the VS Code extension and the standalone CLI. They use the same runtime; pick whichever fits your workflow. Both can run side by side on the same machine.
+Pixel Agents is currently available as a **VS Code extension** and as a **standalone local web app** launched from the command line (`npx pixel-agents` starts a local server and serves the office in your browser). Both use the same runtime, and they can run side by side on the same machine.
+
+There are five ways to get it, covered below:
+
+- **[VS Code Marketplace](#option-a-vs-code-marketplace)** - the most popular install, for VS Code users.
+- **[Open VSX](#option-b-open-vsx-vscodium-theia-etc)** - the same extension, for Cursor, VSCodium, Theia, and other VS Code derivatives.
+- **[npx](#option-c-standalone-via-npx)** - run the standalone app with a single command, nothing to install.
+- **[Global npm install](#option-d-global-npm-install)** - a permanent `pixel-agents` command on your PATH.
+- **[From source](#option-e-from-source)** - for contributors and anyone wanting the bleeding edge.
 
 ## System requirements
 
+Shared across all options:
+
 - **Operating system:** macOS, Linux, or Windows.
-- **Node.js:** version 22 or newer (pinned in `.nvmrc` for development; runtime supports 18+ but 22 is recommended). Required by the standalone CLI; not by the VS Code extension if you only use VS Code.
-- **VS Code:** 1.105.0 or newer (per `package.json` engines).
-- **Claude Code CLI:** install separately if you plan to use Pixel Agents with Claude. Pixel Agents visualizes existing Claude sessions; it doesn't bundle the CLI.
-- **Disk:** under 20 MB for the extension; standalone is similar.
+- **An AI agent CLI:** today that's mainly [Claude Code](https://docs.claude.com/en/docs/claude-code/setup) - install and authenticate it separately. Pixel Agents visualizes existing agent sessions; it doesn't bundle the agent. Support for more agents arrives via [providers](/build/providers/overview).
+- **Disk:** under 20 MB.
+
+Each option adds its own requirement:
+
+- **VS Code extension (options A and B):** [VS Code](https://code.visualstudio.com/) 1.105.0 or newer, or a compatible derivative. No Node.js needed.
+- **Standalone (options C and D):** Node.js 18 or newer (22 recommended).
+- **From source (option E):** Node.js 22 (pinned in `.nvmrc`) and git.
 
 ## Option A: VS Code Marketplace
 
@@ -37,9 +51,9 @@ For VS Code-derivative editors that don't use the Microsoft Marketplace:
 
 Open VSX maintains the same release versions as the Microsoft Marketplace.
 
-## Option C: Standalone CLI (`npx`)
+## Option C: Standalone via npx
 
-Run a local server with a browser SPA. No IDE required.
+Run a local server with a browser UI. No IDE required.
 
 ```sh
 npx pixel-agents
@@ -87,7 +101,7 @@ After installing, verify by running an AI agent and watching the office.
 **VS Code:**
 1. Open the Pixel Agents panel.
 2. Click "+ Agent" in the bottom toolbar.
-3. A terminal opens running `claude --session-id <uuid>`.
+3. A terminal opens running the agent (`claude --session-id <uuid>`).
 4. Within 2 seconds a character should appear in the office.
 
 **Standalone:**
@@ -98,25 +112,13 @@ After installing, verify by running an AI agent and watching the office.
 
 If the character doesn't appear, see [troubleshooting](/use/troubleshooting).
 
-## Optional: install Claude Code Hooks
+## Hooks are on by default
 
-The visualization works without hooks (it uses file-watching fallback), but enabling hooks makes detection instant and removes the occasional false-positive permission bubble.
+Pixel Agents installs agent hooks by default: it writes hook entries into `~/.claude/settings.json` and copies its hook script to `~/.pixel-agents/hooks/claude-hook.js`. Hooks make activity detection instant and reliable.
 
-1. Open the Pixel Agents settings (gear icon).
-2. Toggle "Hooks enabled" on.
-3. The extension writes hook entries into `~/.claude/settings.json` and copies the hook script to `~/.pixel-agents/hooks/claude-hook.js`.
+If you prefer not to use hooks, toggle "Hooks enabled" off in the Pixel Agents settings (gear icon); the visualization then falls back to file watching, which is slightly delayed and can occasionally show a false-positive permission bubble.
 
 See [Enabling hooks](/use/workflows/enabling-hooks) for the detail.
-
-## Optional: import a tileset
-
-Pixel Agents ships with a small bundled tileset (basic furniture, characters, floor/wall patterns). For the full experience, the project documents a 7-stage asset pipeline to import third-party tilesets:
-
-```sh
-npm run import-tileset
-```
-
-See [Bring your own assets](/use/workflows/external-assets).
 
 ## Uninstall
 
@@ -130,4 +132,4 @@ See [Bring your own assets](/use/workflows/external-assets).
 
 - [Quickstart: VS Code](./quickstart-vscode)
 - [Quickstart: Standalone](./quickstart-standalone)
-- [How it works](./how-it-works)
+- [How it works](/learn/how-it-works)

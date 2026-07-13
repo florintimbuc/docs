@@ -6,6 +6,10 @@ sidebar_position: 4
 
 Zero to your first agent in a browser in under 5 minutes. No IDE required.
 
+:::note
+This quickstart uses [Claude Code](https://docs.claude.com/en/docs/claude-code/setup) in every example - it's the first supported agent. The same concepts apply to other coding agents as [providers](/build/providers/overview) are added.
+:::
+
 ## Prerequisites
 
 - Node.js 18 or newer (22 recommended). Check with `node -v`.
@@ -40,9 +44,9 @@ The server stays attached to the terminal. Use `Ctrl+C` to stop it.
 
 Open the printed URL (default `http://127.0.0.1:3100/`).
 
-The pixel-art office loads. No characters yet, because no Claude sessions are running.
+The pixel-art office loads. No characters yet, because no agent sessions are running.
 
-## Step 3: Run Claude in another terminal
+## Step 3: Run an agent in another terminal
 
 Open a second terminal in the same project directory and run:
 
@@ -50,53 +54,59 @@ Open a second terminal in the same project directory and run:
 claude
 ```
 
-Claude starts an interactive session. Within ~3 seconds, a character appears in the browser office with the green matrix-rain reveal effect.
+The agent starts an interactive session. Within ~3 seconds, a character spawns in the office, seated at an available seat.
 
-The character represents that Claude session. As you type prompts and Claude executes tools, the character animates: reading when Claude reads files, typing when Claude writes or runs commands, waiting (with a speech bubble) when Claude pauses for input.
+You now have a live agent. Anything you type in the terminal is what the agent responds to; the character will animate accordingly.
 
-## Step 4: Try a tool
+## Step 4: Make the agent do something
 
-In the Claude terminal, type:
+In the agent's terminal, type:
 
 ```
-read package.json and tell me what it does
+Read package.json and tell me what it does.
 ```
 
-Watch the browser:
+Watch the character:
 
-- Character shifts to the reading animation while Read runs.
-- Shifts to typing while Claude composes the response.
-- Returns to idle when done.
+- The **reading animation** plays (the character holds up a piece of paper) while the Read tool runs.
+- The **typing animation** plays while the agent composes the answer.
+- If the agent asks for permission at any point (e.g. for a Bash command), a **"..." speech bubble** appears above its head. Respond in the terminal and the bubble disappears.
+- When the agent is done, a **checkmark bubble** appears above its head and a sound notification plays.
 
-If Claude asks for permission (e.g. to run a Bash command), the character shows a "..." amber speech bubble. A two-note chime plays. Approve in the terminal and the bubble disappears.
+## Step 5: Add a second agent
 
-## Step 5: Add a second session
+Open a third terminal in the same directory and run `claude` again. A second character spawns - a different character. Pixel Agents ships six distinct characters; beyond six agents, the characters repeat with shifted color hues so every agent stays distinguishable.
 
-Open a third terminal in the same directory and run `claude` again. A second character appears in the browser with a different palette.
+Both agents work independently. The browser is a real-time view of every agent session in this project directory.
 
-Both characters work independently. The browser is a real-time view of every Claude session in this project directory.
+## Step 6: Spawn sub-agents
 
-## What you just did
+Sub-agents get characters too. In either agent terminal, type:
 
-You ran a local server, opened a browser view, and watched two Claude sessions visualized side by side. No VS Code needed.
+```
+Spawn three subagents in parallel to summarize the main folders of this project.
+```
 
-The standalone server is the same runtime that powers the VS Code extension. The transport is WebSocket instead of postMessage; everything else (asset loading, layout, character FSM, tool detection) is identical. See [the architecture page](/learn/architecture).
+Ephemeral sub-agent characters appear next to the parent character while the subtasks run, and disappear as each one completes. They inherit the parent's look, so they read as a group.
 
-## What to try next
-
-| Action | Where |
-|---|---|
-| Customize the office layout | "Layout" button in the bottom toolbar. See [Layout editor](/use/vscode/layout-editor) (the editor is the same in both surfaces). |
-| Enable hooks for instant detection | Settings → "Hooks enabled". See [Enabling hooks](/use/workflows/enabling-hooks). |
-| Run on a custom port | `npx pixel-agents --port 4000`. See [Running the server](/use/standalone/running-the-server). |
-| Watch sessions from other directories too | "Watch all sessions" toggle in settings. |
-| Run the server alongside VS Code | The VS Code extension detects a running standalone server via `~/.pixel-agents/server.json` and reuses it. |
+That's the tour: you ran a local server, opened a browser view, and watched two agents and a handful of sub-agents work side by side - no VS Code needed. Under the hood it's the same runtime that powers the VS Code extension; see [Architecture](/learn/architecture).
 
 ## Stopping the server
 
 In the terminal where `npx pixel-agents` is running, press `Ctrl+C`. The server cleans up timers, removes its `~/.pixel-agents/server.json` entry, and exits. Any browser tab will show the disconnected state.
 
 If the terminal closed without graceful shutdown (kill -9, system crash), the next `npx pixel-agents` invocation detects the stale entry via PID check and starts fresh.
+
+## What to try next
+
+| Action | Where |
+|---|---|
+| Customize the office layout | "Layout" button in the bottom toolbar. See [Layout editor](/use/vscode/layout-editor) (the editor is the same in both surfaces). |
+| Customize settings (sounds, hooks, and more) | Click "Settings" in the bottom toolbar. See [Settings](/use/vscode/settings) (same settings panel in both surfaces). |
+| Watch sessions from other directories too | "Watch all sessions" toggle in settings. |
+| Run a task with an agent team | Just ask the agent: "Build X with an agent team." See [Using agent teams](/use/workflows/using-agent-teams). |
+| Run on a custom port | `npx pixel-agents --port 4000`. See [Running the server](/use/standalone/running-the-server). |
+| Run the server alongside VS Code | The VS Code extension detects a running standalone server via `~/.pixel-agents/server.json` and reuses it. |
 
 ## If something didn't work
 
@@ -111,7 +121,7 @@ Full symptom-driven guide: [Standalone troubleshooting](/use/standalone/troubles
 
 ## Next steps
 
-- [How it works](./how-it-works) - the mental model.
+- [How it works](/learn/how-it-works) - the mental model.
 - [Standalone overview](/use/standalone/overview) - the full feature tour.
 - [Running the server](/use/standalone/running-the-server) - CLI flags and lifecycle.
 - [Concepts](/learn/concepts) - vocabulary.

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # The office
@@ -10,177 +10,139 @@ For the conceptual vocabulary, see [Concepts](./concepts). For "how do I do X" t
 
 ## The view
 
-```
-┌──────────────────────────────────────────┐
-│                                          │ ← Top-right: zoom controls (1x-10x)
-│   ┌───────────────────────────┐          │
-│   │                           │          │
-│   │   pixel-art office grid   │          │
-│   │   (canvas)                │          │
-│   │                           │          │
-│   └───────────────────────────┘          │
-│                                          │
-├──────────────────────────────────────────┤
-│ [+ Agent] [Layout] ... [⚙ Settings]      │ ← Bottom toolbar
-└──────────────────────────────────────────┘
-```
+![The Pixel Agents panel: zoom controls top-left, the office canvas, and the bottom toolbar](/img/panel-view.png)
 
-The canvas is pixel-perfect: integer zoom levels (1x through 10x), no anti-aliasing, no fractional pixels. Default zoom is `Math.round(2 * devicePixelRatio)`, which usually means 4x on a Retina display, 2x on a standard one.
-
-You pan the view with middle-mouse drag. You zoom with the +/- buttons. There's no rotation; the office is always viewed from the same angle.
+The canvas is pixel-perfect: integer zoom levels only, no anti-aliasing, no fractional pixels. The default zoom is picked from your display (typically 4x on Retina, 2x on a standard screen). Zoom with the +/- buttons; pan with middle-mouse drag. There's no rotation; the office is always viewed from the same angle.
 
 ## Characters
 
-Each character is one agent. The character has three direction sets (down, up, right) with the left direction rendered as flipped right. Frames are 16 wide x 32 tall, with the visible character in the bottom 24px and 8px of top padding.
+Each character is one agent.
 
-What you'll see:
+Characters can have different **skins** - distinct character designs from the bundled set. Once every design is in use, new agents reuse them with shifted color hues, so any number of agents stay visually distinguishable. Sub-agents are the exception: they clone their parent's look on purpose (see [sub-agents](#sub-agents) below).
+
+Want different characters? You can draw or import your own - see [character assets](/build/assets/characters) and [external assets](/use/workflows/external-assets).
+
+What a character is doing mirrors what its agent is doing:
 
 | Pose | When |
 |---|---|
-| **Standing** (idle) | The agent is between activities. Same as the walk2 frame held still. |
-| **Walking** | The agent is pathfinding to its seat or wandering. Animation cycles walk1 / walk2 / walk3. |
-| **Typing** | The agent is running a writing tool (Write, Edit, Bash, Task). Two-frame animation. |
-| **Reading** | The agent is running a reading tool (Read, Grep, Glob, WebFetch, WebSearch). Two-frame animation. |
+| **Typing** | The default while the agent is working or while idle at its seat. |
+| **Reading** | The agent is running a read-style tool: reading files, searching, fetching. |
+| **Walking** | The character is moving - to its seat, or wandering around when idle. |
+| **Standing** | Idle between activities. |
 
-When a character is sitting (in the TYPE state at a seat), it shifts down 6 pixels to look like it's in the chair, not floating.
+### Spawn, despawn, and wandering
 
-## Visual identity
+Characters arrive and leave with a brief Matrix-style digital-rain effect. Restored agents (reconnecting after a reload) skip it, so reopening VS Code doesn't set off a visual blast.
 
-Each character has a unique-ish look determined by two fields:
+Idle characters occasionally get bored: they wander to a random walkable tile, stroll around a bit, and return to their seat. Wandering stops the moment the agent has work to do.
 
-- **Palette** (0-5): one of six pre-colored character PNG sets. The first six agents each get a unique palette via the diverse-palette picker.
-- **Hue shift** (degrees): an HSL hue rotation applied at render time. Beyond the first six agents, palettes repeat with a random hue shift between 45 and 315 degrees.
-
-Combined, you can have dozens of agents with visually distinct characters. The cache key for the rendered sprite is `"palette:hueShift"` (e.g. `"3:120"`).
-
-## Spawn and despawn effects
-
-Characters arrive and leave with a Matrix-style digital-rain effect lasting 0.3 seconds. Sixteen vertical columns sweep top-to-bottom with staggered timing.
-
-**Spawn:** green rain reveals character pixels behind the sweep.
-
-**Despawn:** character pixels are consumed by green rain trails.
-
-Restored agents (those loaded from `existingAgents` on reconnect) skip the effect to avoid a visual blast every time you reload VS Code.
-
-## Speech bubbles
+### Speech bubbles
 
 Two kinds of bubbles appear above characters:
 
-**Permission bubble** - amber "..." dots. Appears when:
-- Claude fires a `PermissionRequest` hook (instant), or
-- Claude fires a `Notification(permission_prompt)` hook (instant), or
-- The heuristic permission timer fires 7 seconds after a non-exempt tool starts and nothing has happened since.
+**Permission bubble** - a white bubble with "..." dots. Appears when the agent asks for permission (instantly when hooks deliver; in the heuristic fallback, after a tool has been pending for 7 seconds). It persists until you click on the character or the underlying tool completes.
 
-Persists until the underlying tool either completes or you approve the permission in the terminal.
+**Done bubble** - a white bubble with a green checkmark. Appears when the agent finishes its turn and is waiting for you. It auto-fades after 2 seconds; the done sound plays at the same moment (see [Sound](#sound)).
 
-**Waiting bubble** - green checkmark. Appears when:
-- The agent has finished its turn and is otherwise idle for `TEXT_IDLE_DELAY_MS = 5s` (heuristic mode), or
-- A `Notification(waiting_for_input)` hook fires (hook mode).
+### Sub-agents
 
-Auto-fades after 2 seconds. The chime sound plays at the same time (toggleable in settings).
+When an agent delegates work to sub-agents, ephemeral characters appear next to the parent - at the closest free walkable tile, not necessarily a seat. They look like clones of the parent (same skin and hue), their activity label shows the delegated task, and they vanish when the subtask completes.
 
-## Seats
+Clicking a sub-agent focuses the parent's terminal, since sub-agents don't have their own.
 
-Chairs in the office layout are seats. Multi-tile chairs (couches, benches) produce one seat per tile. Each seat has:
+### Teammates
 
-- An identifier (the chair's `uid`, possibly with a `:tileIndex` suffix).
-- A facing direction (UP / DOWN / LEFT / RIGHT) computed from: 1) the chair's catalog `orientation`, 2) adjacent desk position, 3) defaults to DOWN.
+Agents can also spawn **teammates**: persistent agents with their own session, seat, and activity. The spawning agent becomes the **lead**, and together they form a team - see [Agent teams](./agent-teams) for the full pattern.
 
-When an agent appears, it picks a seat using a closest-free-seat heuristic. You can reassign seats interactively: click a character to select it (white outline), then click any available seat.
+Unlike sub-agents, teammates are full characters with their own skin (they don't inherit the lead's). Teams change the labels instead: the lead is labelled **LEAD**, and each teammate is labelled with its name, so you can tell the team apart at a glance. Teammates stay alive across the lead's turns; when the lead closes, its teammates close with it.
 
-A chair's tile is normally blocked for pathfinding except for the character assigned to that seat (per-character `withOwnSeatUnblocked` logic). This means a character can walk to its own seat through other chairs.
+### Activity labels
 
-## Wandering
+Hover over a character (or click to select it) and a small label appears above its head showing what the agent is doing right now. Examples:
 
-When an agent is idle for a while, it gets bored. It picks a random walkable tile via BFS and walks there. After a configurable number of wander moves (`wanderLimit`), it returns to its seat for a rest. The cycle repeats.
-
-Wandering is suppressed when the agent is actively typing/reading. It resumes when the agent goes back to idle.
-
-## Sub-agents
-
-When an agent runs a sub-agent tool (Claude's `Task`), an ephemeral sub-agent character appears next to the parent. It has:
-
-- A negative ID (the parent has a positive ID).
-- The same palette and hue shift as the parent (visually grouped).
-- A "Subtask:" prefix on its activity label.
-
-Sub-agents spawn at the closest free seat to the parent (Manhattan distance). If no seat is available, they spawn at the closest walkable tile. They don't persist; they vanish when the Task completes.
-
-Clicking a sub-agent focuses the parent's terminal (since sub-agents don't have their own terminal to focus).
-
-## Teammates
-
-Teammates are full agents spawned via `Agent(... run_in_background: true)`. They show up just like top-level agents (positive IDs, their own seats, their own activity), and they inherit the lead's palette + hueShift so the team is visually grouped.
-
-Teammates persist. They stay alive across the lead's turns, sit at their own seats, run their own tools.
-
-When the lead closes, teammates close with it.
-
-## Activity labels
-
-Hover over a character (or click to select) and a small label appears above the head showing what tool is currently active. Labels are formatted by the provider's `formatToolStatus(toolName, input)` function. Examples for Claude:
-
-| Tool | Label |
+| Activity | Label |
 |---|---|
-| `Read` | `Reading <basename>` |
-| `Edit` | `Editing <basename>` |
-| `Write` | `Writing <basename>` |
-| `Bash` | `Running: <truncated command>` |
-| `Glob` | `Searching files` |
-| `Grep` | `Searching code` |
-| `WebFetch` | `Fetching web content` |
-| `Task`, `Agent` | `Subtask: <description>` or `Running subtask` |
+| Reading a file | `Reading <filename>` |
+| Editing / writing a file | `Editing <filename>` / `Writing <filename>` |
+| Running a command | `Running: <command>` |
+| Searching | `Searching files` / `Searching code` |
+| Fetching a page | `Fetching web content` |
+| Delegating to a sub-agent | The delegated task's description |
 
-Source: `server/src/providers/hook/claude/claude.ts` `formatToolStatus` function (top of file).
+Labels show on hover and selection by default; to keep them always visible, turn on **Always Show Labels** in settings.
 
-## Floor tiles
+For reference, the exact label formats live in [the provider source on GitHub](https://github.com/pixel-agents-hq/pixel-agents/blob/main/server/src/providers/hook/claude/claude.ts).
 
-Floor uses one of nine grayscale 16×16 patterns in `assets/floors/` (`floor_0.png` through `floor_8.png`). Each placed tile carries HSBC (hue/saturation/brightness/contrast) values that colorize the grayscale into the final color at render time.
+### Pets
 
-Two colorization modes:
-- **Colorize** (default for floors): grayscale → luminance → fixed HSL. Photoshop-style.
-- **Adjust**: shifts the source pixel's HSL. Less drastic.
+The office isn't only agents: you can place **pets** - small animated companions. Pets aren't bound to agents. They wander the office on their own, pause wherever they like, and every so often trail a nearby character around for a while. Click a pet to pet it - a heart bubble pops up.
 
-Floor color is per-tile. Painting a tile applies the toolbar's current HSBC settings to that one tile.
+Two pets ship with the app: **Claudio** and **Gitcat**. While pets are characters, they are placed with the layout editor's Pets tool and saved in the layout file.
 
-## Wall tiles
+## The layout
 
-Walls are auto-tiled. Each placed wall tile gets a 4-bit bitmask (N=1, E=2, S=4, W=8) based on which cardinal neighbors are also walls. The bitmask indexes into 16 sprite pieces in `assets/walls/wall_0.png` (4×4 grid, each 16 wide × 32 tall).
+### Editing the office
 
-Walls extend 16 pixels above their tile to give a 3D face effect. They z-sort with furniture and characters.
+The office itself is fully editable. The **Layout** button in the bottom toolbar enters edit mode: paint floor and wall tiles, place and rotate furniture, undo/redo, expand the grid, and save. The full guide is at [Layout editor](/use/vscode/layout-editor).
 
-Wall color is global: one HSBC setting applies to all walls in the layout. Adjusting the slider re-colorizes everything.
+Your design is stored in `~/.pixel-agents/layout.json` and shared across every surface - all VS Code windows and the standalone app render the same office.
 
-## Furniture
+### Floor tiles
 
-Items placed on the grid. Each catalog entry has:
+Floors are 16x16px grayscale patterns colorized at render time: each placed tile carries hue/saturation/brightness/contrast values that turn the base pattern into its final color, so any floor can be any color. Painting applies the toolbar's current color settings per tile.
 
-- A footprint (width x height in tiles).
-- A category (desks, chairs, storage, electronics, decor, wall, misc).
-- Flags: `isDesk`, `canPlaceOnWalls`, `canPlaceOnSurfaces` (laptops, monitors, mugs that overlap with desks).
-- Optional `orientation` (front/back/left/right) and `groupId` for rotation groups.
-- Optional `state` (on/off) and `groupId` for state-toggle groups.
+Two colorization modes exist: **Colorize** (default - recolors from luminance, Photoshop-style) and **Adjust** (shifts the source pixel's colors; subtler).
 
-Auto-state: electronics (monitors, laptops) automatically swap to ON sprites when an active agent is facing a desk with that item nearby. The trigger is computed at render time without modifying the saved layout.
+For a feel of what a floor asset looks like, here's one from the bundled set: [floor_0.png](https://github.com/pixel-agents-hq/pixel-agents/blob/main/webview-ui/public/assets/floors/floor_0.png).
 
-## Camera
+### Wall tiles
 
-Most of the time the camera follows the selected agent. Click a character to select; the camera smoothly centers on that character. Click an empty tile to deselect; the camera stays put.
+Walls are auto-tiled: each placed wall picks the right sprite piece based on which of its neighbors are also walls, so corners, edges, and junctions connect seamlessly. Walls extend above their tile to give a 3D face effect, and they z-sort with furniture and characters.
+
+Wall color is global: one color setting applies to every wall in the layout.
+
+The bundled wall sheet is [wall_0.png](https://github.com/pixel-agents-hq/pixel-agents/blob/main/webview-ui/public/assets/walls/wall_0.png); to see how the auto-tiling picks pieces from it, try the [wall tile editor](https://github.com/pixel-agents-hq/pixel-agents/blob/main/scripts/wall-tile-editor.html), a small visualization app that's included in the git repo.
+
+### Furniture
+
+Furniture is everything you place on the grid: desks, chairs, storage, electronics, decor, and wall items. Each item has a tile footprint and a category. Some items can sit on top of desks and other surfaces (laptops, monitors, mugs), some hang on walls, and many come in rotation groups so you can place them facing different directions. Some have on/off or animated states.
+
+Two kinds of furniture carry meaning beyond decoration: chairs define [seats](#seats), and desks influence which way a seat faces.
+
+The bundled catalog ships with the app, and you can add your own items via asset packs - see [furniture assets](/build/assets/furniture) and [external assets](/use/workflows/external-assets).
+
+### Seats
+
+Chairs are seats; multi-tile chairs (couches, benches) provide one seat per tile. Each seat faces a direction, taken from the chair's design or from an adjacent desk.
+
+When an agent appears, it takes the closest free seat - preferring seats inside its folder's [area](#areas) when one is mapped. To reassign, click a character to select it, then click any free seat.
+
+Chair tiles are blocked for walking, with one exception: a character's own seat is unblocked for it, so it can step onto its chair to sit down.
+
+### Areas
+
+Areas are named zones painted onto the floor with the layout editor's Areas tool. On their own they're just labelled regions; their power is folder mapping: assign a workspace folder to an area, and agents from that folder will always spawn and seat inside it by default.
+
+Areas render as a translucent color overlay with the area's label on top. The overlay is always visible while editing the layout; outside the editor, toggle **Show Areas** in settings.
+
+For the moment, areas only appear in VS Code when the window is opened from a `.code-workspace` file - that's what provides the workspace folders to map. Without one, the Areas tool and the Show Areas toggle stay hidden. The standalone app has no workspace folders, so the Areas UI doesn't appear there either.
+
+## Camera and sound
+
+### Camera
+
+Most of the time the camera follows the selected agent. Click a character to select it; the camera smoothly centers on it. Click an empty tile to deselect; the camera stays put.
 
 Middle-mouse drag pans the view manually. Manual pan clears the camera follow.
 
-## Sound
+### Sound
 
-The notification chime is an ascending two-note (E5 → E6) generated via the Web Audio API. It fires when an agent enters the waiting state. Toggleable in Settings; persisted in global state.
+There are two notification sounds: a **permission sound** when an agent asks for permission, and the **done chime** when an agent finishes its turn.
 
-The audio context is unlocked on first canvas mousedown (browsers start AudioContexts suspended until user interaction). If you've never clicked the canvas, sounds won't play.
+Both sit behind the single "Sound notifications" toggle in [Settings](/use/vscode/settings) - flip it off for a silent office. The setting persists per host.
 
-## What's not shown
-
-- **No code.** Pixel Agents doesn't render the contents of files or commands. The label tells you which tool; the terminal tells you the rest.
-- **No history.** The office is real-time. Past activity isn't replayed; there's no scroll-back of character actions.
-- **No multiplayer.** Each user's office is local. There's no shared remote office.
+One browser caveat: audio is unlocked on your first click on the canvas. If you've never clicked it, sounds won't play even with the toggle on.
 
 ## Next
 

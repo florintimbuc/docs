@@ -5,10 +5,6 @@ title: Overview
 
 # VS Code overview
 
-:::warning[AI-generated docs]
-This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/vscode/overview.md).
-:::
-
 The VS Code extension is the original Pixel Agents surface. This page is the full feature tour. For installation, see [Install](/start/install); for the 5-minute path, see [Quickstart: VS Code](/start/quickstart-vscode).
 
 ## The panel
@@ -25,25 +21,15 @@ The panel persists across reloads. Closed terminals get re-bound to their agents
 
 ## The bottom toolbar
 
-```
-[+ Agent ▾] [Layout] [...] [⚙ Settings]
-```
+![The bottom toolbar: + Agent, Layout, and Settings](/img/bottom-toolbar.png)
 
-- **+ Agent**: spawn a new Claude terminal and character. In multi-root workspaces, the dropdown caret lets you pick which folder the agent's terminal opens in.
+- **+ Agent**: spawn a new agent terminal and character - see [Agent lifecycle](/learn/agent-lifecycle) for what happens under the hood. In multi-root workspaces, the dropdown caret lets you pick which folder the agent's terminal opens in.
 - **Layout**: enter edit mode. See [Layout editor](./layout-editor).
-- **⚙ Settings**: opens the centered settings modal.
-
-The toolbar may show additional controls depending on state (an EditActionBar appears when the layout is dirty, with Undo / Redo / Save / Reset buttons).
-
-## The zoom controls (top-right)
-
-`+` and `-` buttons increase or decrease the integer zoom level. Default zoom is calculated from your display: `Math.round(2 * devicePixelRatio)`, typically 4x on Retina, 2x otherwise.
-
-Zoom range is 1x to 10x. The canvas is always pixel-perfect; there's no fractional zoom.
+- **⚙ Settings**: opens the settings modal. See [Settings](./settings).
 
 ## The office canvas
 
-A pixel-art office grid with floor tiles, wall tiles, furniture, and characters. Middle-mouse drag pans. Mouse wheel does nothing by default (no scroll-zoom).
+A pixel-art office grid with floor tiles, wall tiles, furniture, and characters. Middle-mouse drag pans. The mouse wheel zooms in and out (integer zoom levels only - the canvas is always pixel-perfect), as do the +/- buttons in the corner.
 
 Character interactions:
 
@@ -55,35 +41,31 @@ Character interactions:
 Selected character interactions:
 
 - **Click a seat** → reassign the character to that seat.
-- **Click the X button on the character** → dismiss the agent (close the terminal too if there is one).
-
-The X button is small but real - look for it floating near the head of a selected character.
+- **Right-click a tile** → the character walks to it.
+- **Click the X button near the character's head** → dismiss the agent (close the terminal too if there is one).
 
 ## Tool activity visualization
 
 What you see when an agent runs a tool:
 
-| Tool family | Animation |
+| Activity | What you see |
 |---|---|
-| `Read`, `Grep`, `Glob`, `WebFetch`, `WebSearch` | Reading animation (character holds notebook). |
-| `Write`, `Edit`, `Bash`, `Task` | Typing animation (tiny keyboard). |
-| `Task`, `Agent` (subagent) | Spawns a sub-agent character next to the parent. |
-| `Agent` with `run_in_background: true` | Spawns a persistent teammate with the lead's palette. |
+| Read-style tools (reading files, searching, fetching) | Reading animation. |
+| Everything else | Typing animation - the default whenever the agent is working at its seat. |
+| Sub-agent spawns | A sub-agent character appears next to the parent. |
+| Teammate spawns | A persistent teammate character appears with its own seat. |
 
-Reading vs typing is decided by the provider's `readingTools` set. The default for Claude is `Set(['Read', 'Grep', 'Glob', 'WebFetch', 'WebSearch'])`.
+Which tools count as "read-style" is decided by the provider's `readingTools` set.
 
 ## Speech bubbles
 
-Two kinds:
-
-- **Permission bubble** (amber "..."): the agent is waiting for permission. With hooks, this appears instantly; without hooks, after a 7-second heuristic timer.
-- **Waiting bubble** (green ✓): the agent is otherwise idle but expects input. Auto-fades after 2 seconds. A chime sound plays at the same time by default.
+A "..." bubble means the agent wants permission; a green-checkmark bubble (plus the done chime) means it finished its turn. Full detail in [The office → Speech bubbles](/learn/the-office#speech-bubbles).
 
 ## Sub-agent and teammate display
 
-**Sub-agents** (Task tool) appear as small characters next to the parent. They have the parent's palette and a "Subtask:" prefixed activity label. They despawn when the Task completes.
+**Sub-agents** appear as clones of the parent (same skin) next to it, labelled with the delegated task. They despawn when the subtask completes.
 
-**Teammates** (Agent + run_in_background) appear as full characters with their own seats. They share the lead's palette plus an inherited hue shift, making the team visually grouped.
+**Teammates** appear as full characters with their own seats and their own skins. The team is identified by labels: the lead shows **LEAD**, each teammate shows its name.
 
 Clicking a sub-agent focuses the parent's terminal (since sub-agents don't have their own). Clicking a teammate focuses the teammate's terminal if one exists, otherwise falls back to the lead.
 
@@ -101,21 +83,13 @@ The shared server (started by the first window) is detected by the second via `~
 
 ## Tool activity label
 
-Hover or select a character to see the current tool's status. The label is formatted by the provider's `formatToolStatus(toolName, input)` function. Examples:
-
-- `Reading package.json`
-- `Editing src/cli.ts`
-- `Running: ls -la`
-- `Searching files`
-- `Subtask: refactor auth flow`
-
-When no tool is active, no label appears.
+Hover or select a character to see the current tool's status - `Reading package.json`, `Running: ls -la`, and so on. When no tool is active, no label appears. To keep labels always visible, turn on **Always Show Labels** in [Settings](./settings).
 
 ## Sound notifications
 
-A two-note ascending chime (E5 → E6) plays when an agent enters the waiting state. Toggleable in Settings. Persisted per-host.
+Two sounds: a permission sound when an agent asks for permission, and the done chime when an agent finishes its turn. Both sit behind the "Sound notifications" toggle in Settings; the setting persists per host.
 
-The Web Audio context is unlocked on first canvas mousedown. If you've never clicked the canvas, no sound plays even if the toggle is on.
+The Web Audio context is unlocked on first canvas click. If you've never clicked the canvas, no sound plays even if the toggle is on.
 
 ## Commands
 
@@ -143,7 +117,7 @@ Full reference: [Settings](./settings).
 - **Export/Import Layout** via native save/open dialogs.
 - **Multi-root workspace** awareness.
 
-The standalone equivalent of these features is "open a terminal yourself" - the agent will appear as external when its JSONL is detected.
+The standalone equivalent of these features is "open a terminal yourself" - the agent will appear as external when its transcript is detected.
 
 ## What's the same in standalone
 
@@ -158,4 +132,4 @@ The standalone equivalent of these features is "open a terminal yourself" - the 
 - [Settings](./settings) - every toggle, explained.
 - [Layout editor](./layout-editor) - paint, place, move, save.
 - [Troubleshooting](./troubleshooting) - VS Code-specific symptoms and fixes.
-- [Enabling hooks](/use/workflows/enabling-hooks) - turn on the better detection mode.
+- [Enabling hooks](/use/workflows/enabling-hooks) - hooks are on by default; this page covers the details.

@@ -124,6 +124,7 @@ html[data-theme='dark'] {
 .markdown h3,
 .markdown h4 {
   font-family: var(--pixel-font);
+  letter-spacing: 0.05em;
 }
 
 .markdown h1 {
@@ -142,6 +143,17 @@ html[data-theme='dark'] {
 
 .markdown h4 {
   font-size: 32px;
+}
+
+/* ── Mermaid diagrams ── */
+
+.docusaurus-mermaid-container {
+  display: flex;
+  justify-content: center;
+}
+
+.docusaurus-mermaid-container svg {
+  font-size: 18px !important;
 }
 
 /* ── Navbar ── */
@@ -266,6 +278,29 @@ html::after {
     rgba(0, 0, 0, var(--crt-vignette)) 100%
   );
   animation: crtFlicker 6s steps(1) infinite;
+}
+
+/* ── Firefox fallback ──
+   Firefox rasterizes the 2px RGB sub-pixel grid + overlay blend as wide
+   green-tinted bands across the page, and the fractional-offset fringe
+   text-shadows smear text. Serve plain scanlines and a soft glow instead. */
+
+@supports (-moz-appearance: none) {
+  html[data-theme='dark'] {
+    text-shadow: 0 0 calc(0.12em * var(--crt-intensity)) currentColor;
+  }
+
+  html[data-theme='dark']::before {
+    mix-blend-mode: normal;
+    opacity: 1;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0, 0, 0, var(--crt-scanline-opacity)) 2px,
+      rgba(0, 0, 0, var(--crt-scanline-opacity)) 4px
+    );
+  }
 }
 
 /* ── CRT toggle button ── */

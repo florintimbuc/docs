@@ -4,6 +4,10 @@ sidebar_position: 12
 
 # Glossary
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/glossary.md).
+:::
+
 Quick-lookup definitions for terms used across these docs. Sorted alphabetically. For the longer-form explanations with context, see [Concepts](/learn/concepts).
 
 ## A
@@ -138,7 +142,7 @@ Quick-lookup definitions for terms used across these docs. Sorted alphabetically
 
 **Pattern** - A floor tile pattern. 9 grayscale patterns ship bundled (`floor_0.png` through `floor_8.png`); selected by `TileType.FLOOR_N`.
 
-**Permission bubble** - The amber "..." indicator that appears above a character waiting for permission.
+**Permission bubble** - The "..." bubble (white with amber dots) that appears above a character waiting for permission.
 
 **`PersistedAgent`** - The serialized form of an agent saved to disk (`core/src/schemas.ts:8-22`).
 

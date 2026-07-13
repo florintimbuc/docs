@@ -1,8 +1,12 @@
 ---
-sidebar_position: 5
+sidebar_position: 9
 ---
 
 # Hooks vs heuristic
+
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/learn/hooks-vs-heuristic.md).
+:::
 
 Pixel Agents has two ways of knowing what an agent is doing in real time. The preferred one is the Claude Code Hooks API: Claude itself POSTs an event to our server every time something interesting happens (a tool starts, a tool ends, the turn is done, a permission prompt appears). The fallback is file watching: we tail the JSONL transcript and run a set of timers that infer the same signals heuristically.
 
@@ -32,7 +36,7 @@ Hooks are not always available. There are three realistic reasons:
 
 So heuristic mode is the safety net. It is intentionally a degraded experience, but it works.
 
-## The `hookDelivered` flag
+## The hookDelivered flag
 
 The per-agent switch is a single boolean on `AgentState`. It starts at `false`. The first time the `HookEventHandler` successfully routes a hook event to that agent, it flips to `true`. The flag is set in three places in `server/src/hookEventHandler.ts`:
 
