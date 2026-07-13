@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # VS Code Settings Reference
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/vscode-settings.md).
+:::
+
 The VS Code-native settings exposed via `package.json contributes.configuration`. These appear in VS Code's Settings UI (`Cmd/Ctrl+,` → search "pixel-agents") and can be set in `settings.json`.
 
 Two keys ship today. Both control extension startup behavior. For the file-backed settings (sound, hooks, layout, etc.), see [Config reference](./config). For the use-case overview of both systems, see [Settings](/use/vscode/settings).
@@ -30,7 +34,7 @@ The extension reads these via `vscode.workspace.getConfiguration('pixel-agents')
 
 ## Keys
 
-### `pixel-agents.autoShowPanel`
+### pixel-agents.autoShowPanel
 
 | Type | boolean |
 |---|---|
@@ -41,7 +45,7 @@ When `true`, the Pixel Agents panel automatically opens and focuses when VS Code
 
 Useful when you always want the office visible. With `false` (default), the panel is dormant until you open it via the command palette or click its icon.
 
-### `pixel-agents.autoSpawnAgent`
+### pixel-agents.autoSpawnAgent
 
 | Type | boolean |
 |---|---|
@@ -64,7 +68,7 @@ Use case: you almost always want at least one Claude session live in your worksp
 
 User scope (the default) applies to all VS Code windows. Workspace scope (toggle the "Workspace" tab) applies only to the current workspace.
 
-### Via `settings.json`
+### Via settings.json
 
 User: `Cmd/Ctrl+Shift+P` → "Preferences: Open User Settings (JSON)".
 

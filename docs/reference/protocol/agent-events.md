@@ -4,6 +4,10 @@ sidebar_position: 5
 
 # AgentEvent Reference
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/protocol/agent-events.md).
+:::
+
 `AgentEvent` is the **normalized provider-internal contract** between the [`HookProvider.normalizeHookEvent`](../hookprovider#normalizehookevent) function and the server's [`HookEventHandler`](../state-management#hookeventhandler). It never travels over the wire - clients always see [`ServerMessage`](./server-messages).
 
 The shape is defined in `core/src/provider.ts:14-56`:
@@ -93,7 +97,7 @@ switch (normEvent.kind) {
 
 ## Kinds
 
-### `toolStart`
+### toolStart
 
 `core/src/provider.ts:15-24`.
 
@@ -126,7 +130,7 @@ Tool execution started.
 
 ---
 
-### `toolEnd`
+### toolEnd
 
 `core/src/provider.ts:25`.
 
@@ -147,7 +151,7 @@ Tool execution finished.
 
 ---
 
-### `turnEnd`
+### turnEnd
 
 `core/src/provider.ts:26`.
 
@@ -174,7 +178,7 @@ Agent finished its turn (model is no longer responding).
 
 ---
 
-### `subagentStart`
+### subagentStart
 
 `core/src/provider.ts:27-34`.
 
@@ -208,7 +212,7 @@ A sub-agent began. Only routed when the active provider has a [`TeamProvider`](.
 
 ---
 
-### `subagentEnd`
+### subagentEnd
 
 `core/src/provider.ts:35`.
 
@@ -234,7 +238,7 @@ A sub-agent finished.
 
 ---
 
-### `subagentTurnEnd`
+### subagentTurnEnd
 
 `core/src/provider.ts:36-43`.
 
@@ -268,7 +272,7 @@ Both routes use the raw hook event to call `TeamProvider.extractTeammateNameFrom
 
 ---
 
-### `progress`
+### progress
 
 `core/src/provider.ts:44`.
 
@@ -294,7 +298,7 @@ Progress data for a long-running tool.
 
 ---
 
-### `permissionRequest`
+### permissionRequest
 
 `core/src/provider.ts:45`.
 
@@ -320,7 +324,7 @@ For inline-teammate scenarios, the permission is routed to teammates instead of 
 
 ---
 
-### `sessionStart`
+### sessionStart
 
 `core/src/provider.ts:46-55`.
 
@@ -351,7 +355,7 @@ A session began.
 
 ---
 
-### `sessionEnd`
+### sessionEnd
 
 `core/src/provider.ts:56`.
 
@@ -377,7 +381,7 @@ All other reasons trigger immediate cleanup.
 
 ---
 
-## The `runInBackground` flag
+## The runInBackground flag
 
 `runInBackground` appears on both `toolStart` and `subagentStart`. It's set when the tool was spawned to run in the background - for Claude that's the `Agent` or `Task` tool with `run_in_background: true` in its input.
 

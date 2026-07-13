@@ -4,6 +4,10 @@ sidebar_position: 5
 
 # Roadmap
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/community/roadmap.md).
+:::
+
 What's planned, what's in flight, what's done. Reflects the state of `CHANGELOG.md` and the open issues / PRs at the time of writing. The repo is the source of truth for fresh status; this page is a narrative summary.
 
 For the canonical changelog, see [CHANGELOG.md in the repo](https://github.com/pixel-agents-hq/pixel-agents/blob/main/CHANGELOG.md).

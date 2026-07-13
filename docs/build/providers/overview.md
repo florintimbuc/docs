@@ -5,6 +5,10 @@ title: Overview
 
 # Providers overview
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/providers/overview.md).
+:::
+
 A **provider** is the translator between one specific AI CLI and Pixel Agents. Claude Code emits hooks in one shape, Codex would emit them in another, Copilot in yet another. The provider turns those raw payloads into the shared `AgentEvent` union so everything downstream (timers, broadcasts, the webview) does not care which CLI the user is running.
 
 This page covers what a provider is, what it is responsible for, and the three taxonomy slots that may eventually exist. If you want to build one start to finish, jump to [Adding a provider](/build/providers/adding-a-provider). If you want to read the canonical example, see [Reference implementation](/build/providers/reference-implementation).

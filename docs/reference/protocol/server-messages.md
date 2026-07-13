@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # ServerMessage Reference
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/protocol/server-messages.md).
+:::
+
 All 26 variants of the `ServerMessage` discriminated union. Discriminator field: `type` (`core/asyncapi.yaml:115`).
 
 Every variant below carries `core/asyncapi.yaml:LINE` and `core/src/messages.ts:LINE` citations so you can pin down the exact field set and types in the source of truth.
@@ -46,7 +50,7 @@ export type ServerMessage =
 
 ## Provider capabilities (1)
 
-### `providerCapabilities`
+### providerCapabilities
 
 Schema: `core/asyncapi.yaml:141-161`, TS: `core/src/messages.ts:58-62`.
 
@@ -80,7 +84,7 @@ send({
 
 ## Agent lifecycle (4)
 
-### `agentCreated`
+### agentCreated
 
 Schema: `core/asyncapi.yaml:163-176`, TS: `core/src/messages.ts:64-69`.
 
@@ -104,7 +108,7 @@ A new agent has appeared in the office.
 
 **Emitted from:** `server/src/httpServer.ts:153-165` (`onAgentAdded` listener piped from `AgentStateStore`). The store fires the `agentAdded` event on `set()` (`server/src/agentStateStore.ts:87-94`).
 
-### `agentClosed`
+### agentClosed
 
 Schema: `core/asyncapi.yaml:178-187`, TS: `core/src/messages.ts:71-74`.
 
@@ -121,7 +125,7 @@ An agent has been removed from the office.
 
 **Emitted from:** `server/src/httpServer.ts:167-169` (`onAgentRemoved` listener) when `AgentStateStore.delete()` fires the `agentRemoved` event (`server/src/agentStateStore.ts:96-102`). Triggered from `AgentRuntime.removeAgent()` (`server/src/agentRuntime.ts:204-234`).
 
-### `agentSelected`
+### agentSelected
 
 Schema: `core/asyncapi.yaml:189-198`, TS: `core/src/messages.ts:76-79`.
 
@@ -138,7 +142,7 @@ An agent's terminal was focused (VS Code only). The UI should highlight the char
 
 **Emitted from:** the VS Code adapter when `vscode.window.onDidChangeActiveTerminal` resolves to a known agent. Standalone never emits this.
 
-### `existingAgents`
+### existingAgents
 
 Schema: `core/asyncapi.yaml:200-228`, TS: `core/src/messages.ts:81-87`.
 
@@ -174,7 +178,7 @@ See [AgentSeatMeta](./schemas#agentseatmeta).
 
 ## Agent status / tool activity (6)
 
-### `agentStatus`
+### agentStatus
 
 Schema: `core/asyncapi.yaml:230-246`, TS: `core/src/messages.ts:95-99`.
 
@@ -196,7 +200,7 @@ Active vs waiting state for an agent. Drives the character animation (typing/rea
 - `server/src/timerManager.ts:76-81` - heuristic `startWaitingTimer` marks waiting after `TEXT_IDLE_DELAY_MS` (5 s).
 - `server/src/timerManager.ts:49` - `clearAgentActivity` re-marks active.
 
-### `agentToolStart`
+### agentToolStart
 
 Schema: `core/asyncapi.yaml:248-268`, TS: `core/src/messages.ts:103-111`.
 
@@ -227,7 +231,7 @@ Agent began executing a tool.
 - `server/src/hookEventHandler.ts:717-725` - re-emit background agent tools after `agentToolsClear`.
 - `server/src/transcriptParser.ts` - when JSONL `tool_use` records arrive.
 
-### `agentToolDone`
+### agentToolDone
 
 Schema: `core/asyncapi.yaml:270-282`, TS: `core/src/messages.ts:113-117`.
 
@@ -247,7 +251,7 @@ Agent finished executing a tool. Delayed 300 ms (`TOOL_DONE_DELAY_MS` in `server
 - `server/src/hookEventHandler.ts:446-454` - `handlePostToolUse`.
 - `server/src/transcriptParser.ts` - when JSONL `tool_result` records arrive.
 
-### `agentToolsClear`
+### agentToolsClear
 
 Schema: `core/asyncapi.yaml:284-292`, TS: `core/src/messages.ts:119-122`.
 
@@ -264,11 +268,11 @@ All foreground tools cleared (turn end). Background-agent tools are preserved an
 
 **Emitted from:** `server/src/hookEventHandler.ts:713` (inside `markAgentWaiting`), `server/src/timerManager.ts:36` (inside `clearAgentActivity`).
 
-### `agentToolPermission`
+### agentToolPermission
 
 Schema: `core/asyncapi.yaml:294-303`, TS: `core/src/messages.ts:124-127`.
 
-Permission prompt detected for the agent's current tool. The UI renders the amber `...` permission bubble.
+Permission prompt detected for the agent's current tool. The UI renders the `...` permission bubble.
 
 | Field | Type | Required | Description |
 |---|---|---|---|
@@ -283,7 +287,7 @@ Permission prompt detected for the agent's current tool. The UI renders the ambe
 - `server/src/hookEventHandler.ts:602-605` - hook-driven (PermissionRequest / Notification(permission_prompt)).
 - `server/src/timerManager.ts:133-136` - heuristic `startPermissionTimer` fires after `PERMISSION_TIMER_DELAY_MS` (7 s) when no hook has arrived.
 
-### `agentToolPermissionClear`
+### agentToolPermissionClear
 
 Schema: `core/asyncapi.yaml:305-314`, TS: `core/src/messages.ts:129-132`.
 
@@ -306,7 +310,7 @@ Permission prompt resolved. The UI clears the bubble.
 
 Sub-agents are negative-ID child characters spawned by `Task`/`Agent` tool calls. Each lives under a parent tool ID.
 
-### `subagentToolStart`
+### subagentToolStart
 
 Schema: `core/asyncapi.yaml:316-332`, TS: `core/src/messages.ts:134-140`.
 
@@ -332,7 +336,7 @@ A sub-agent (e.g. `Task`) started a tool.
 
 **Emitted from:** `server/src/hookEventHandler.ts:526-532` (`handleSubagentStart` for within-turn subagents); transcriptParser when an `agent_progress` record with a sub-agent `tool_use` arrives.
 
-### `subagentToolDone`
+### subagentToolDone
 
 Schema: `core/asyncapi.yaml:333-346`, TS: `core/src/messages.ts:142-147`.
 
@@ -356,7 +360,7 @@ A sub-agent finished a tool.
 
 **Emitted from:** transcriptParser when a sub-agent's `tool_result` record arrives.
 
-### `subagentClear`
+### subagentClear
 
 Schema: `core/asyncapi.yaml:348-359`, TS: `core/src/messages.ts:149-153`.
 
@@ -378,7 +382,7 @@ A sub-agent task completed. The child character is removed from the office.
 
 **Emitted from:** `server/src/hookEventHandler.ts:579-583` (`handleSubagentStop`), transcriptParser at `Task` `tool_result`.
 
-### `subagentToolPermission`
+### subagentToolPermission
 
 Schema: `core/asyncapi.yaml:361-372`, TS: `core/src/messages.ts:155-159`.
 
@@ -406,7 +410,7 @@ Permission prompt for a sub-agent's tool. UI renders the permission bubble on th
 
 These messages are only emitted when the active `HookProvider` declares `team` (`core/src/provider.ts:127`). With Claude that's the [`claudeTeamProvider`](../teamprovider).
 
-### `agentTeamInfo`
+### agentTeamInfo
 
 Schema: `core/asyncapi.yaml:374-393`, TS: `core/src/messages.ts:161-169`.
 
@@ -436,7 +440,7 @@ Agent Teams metadata for an agent (lead, teammate, tmux usage).
 
 **Emitted from:** the file watcher / transcriptParser when team metadata is observed in a JSONL record (via `TeamProvider.extractTeamMetadataFromRecord`).
 
-### `agentTokenUsage`
+### agentTokenUsage
 
 Schema: `core/asyncapi.yaml:395-408`, TS: `core/src/messages.ts:171-176`.
 
@@ -464,7 +468,7 @@ Cumulative token usage for the agent's session. Re-emitted whenever the totals a
 
 ## Layout (1)
 
-### `layoutLoaded`
+### layoutLoaded
 
 Schema: `core/asyncapi.yaml:410-430`, TS: `core/src/messages.ts:178-182`.
 
@@ -502,7 +506,7 @@ The protocol intentionally does **not** model the layout shape - it's owned by t
 
 Loaded once at server startup and cached in memory (`AssetCache` in `server/src/clientMessageHandler.ts:14-20`). Sent to each connecting client on `webviewReady`.
 
-### `furnitureAssetsLoaded`
+### furnitureAssetsLoaded
 
 Schema: `core/asyncapi.yaml:432-452`, TS: `core/src/messages.ts:184-188`.
 
@@ -541,7 +545,7 @@ Furniture catalog and sprite data.
 
 **Emitted from:** `server/src/clientMessageHandler.ts:154-160`.
 
-### `characterSpritesLoaded`
+### characterSpritesLoaded
 
 Schema: `core/asyncapi.yaml:454-465`, TS: `core/src/messages.ts:213-216`.
 
@@ -565,7 +569,7 @@ The arrays are 3D - `frames[i][row][col]` is a hex string (`'' = transparent`). 
 
 **Emitted from:** `server/src/clientMessageHandler.ts:145-147`.
 
-### `floorTilesLoaded`
+### floorTilesLoaded
 
 Schema: `core/asyncapi.yaml:467-483`, TS: `core/src/messages.ts:224-227`.
 
@@ -587,7 +591,7 @@ Floor tile sprites (one entry per pattern; 9 in the bundled set).
 
 **Emitted from:** `server/src/clientMessageHandler.ts:148-150`.
 
-### `wallTilesLoaded`
+### wallTilesLoaded
 
 Schema: `core/asyncapi.yaml:485-503`, TS: `core/src/messages.ts:229-232`.
 
@@ -616,7 +620,7 @@ Wall auto-tile sprite sets. The outer array indexes the tile set; the next level
 
 ## Settings & config (3)
 
-### `settingsLoaded`
+### settingsLoaded
 
 Schema: `core/asyncapi.yaml:505-539`, TS: `core/src/messages.ts:234-244`.
 
@@ -650,7 +654,7 @@ All persisted user-level settings, sent once on connect.
 
 **Emitted from:** `server/src/clientMessageHandler.ts:171-181`.
 
-### `externalAssetDirectoriesUpdated`
+### externalAssetDirectoriesUpdated
 
 Schema: `core/asyncapi.yaml:541-552`, TS: `core/src/messages.ts:246-249`.
 
@@ -670,7 +674,7 @@ External asset directory list changed (after add/remove).
 
 **Emitted from:** `server/src/clientMessageHandler.ts:111` and `server/src/clientMessageHandler.ts:121` (after writing the new config).
 
-### `workspaceFolders`
+### workspaceFolders
 
 Schema: `core/asyncapi.yaml:554-565`, TS: `core/src/messages.ts:251-254`.
 
@@ -697,7 +701,7 @@ Multi-root workspace folders (VS Code only). Lets the UI offer a folder picker o
 
 ## Diagnostics (1)
 
-### `agentDiagnostics`
+### agentDiagnostics
 
 Schema: `core/asyncapi.yaml:567-579`, TS: `core/src/messages.ts:261-264`.
 

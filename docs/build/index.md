@@ -5,6 +5,10 @@ title: Overview
 
 # Build on Pixel Agents
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/index.md).
+:::
+
 Pixel Agents has four extension surfaces. Pick the one matching your goal, then follow that surface's guide top to bottom.
 
 You are looking at the **build** section, which is for developers extending the platform. If you want to install Pixel Agents and use it as-is, see the [Use guides](/use/standalone/overview) instead. If you want background on how the platform is wired, see [Architecture](/learn/architecture).

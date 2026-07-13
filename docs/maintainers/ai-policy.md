@@ -4,6 +4,10 @@ sidebar_position: 7
 
 # AI Policy
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/maintainers/ai-policy.md).
+:::
+
 > **Audience:** Maintainers reviewing AI-generated PRs, and contributors using AI tools.
 
 Pixel Agents accepts AI-generated PRs. They're not categorically rejected. Several of the project's own internal tooling (`pixel-agents-architect`, `pixel-agents-reviewer`, `repo-cluster-planner`) is itself AI-driven. We are not philosophically opposed.

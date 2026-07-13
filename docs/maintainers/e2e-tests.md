@@ -4,6 +4,10 @@ sidebar_position: 6
 
 # E2E tests + pre-release manual smoke
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/maintainers/e2e-tests.md).
+:::
+
 > **Audience:** Maintainers running CI, cutting releases, or adding tests.
 
 Pixel Agents has an automated Playwright e2e suite that covers the VS Code extension and the standalone `npx pixel-agents` server. CI green on this suite is the safety net for behavioral regressions. A short manual smoke (~30 min) covers what e2e structurally can't see.
@@ -14,27 +18,27 @@ This page is the maintainer-facing summary. The source of truth (with the auto-g
 
 Each area corresponds to a `test.describe` block in the spec files, an `@area:` tag on each test title, and an Allure `epic` label.
 
-### `@area:spawn`
+### @area:spawn
 
 Agents being created and adopted. Covers internal terminals launched by clicking `+ Agent`, external Claude sessions adopted by the hook server or the JSONL scanner, basic Task subagent appearance/despawn, and lead+teammate routing for inline and tmux team modes.
 
-### `@area:lifecycle`
+### @area:lifecycle
 
 Edge cases that historically caused agent-character desync: `/clear`, `--resume`, X-button close, dismissal cooldown, parallel sub-agents, teammate add/remove, rapid `/clear` followed by a new tool, late resume after stale cleanup.
 
-### `@area:cross-cutting`
+### @area:cross-cutting
 
 Invariants that should hold across every spawn path: tool status text matches the active tool name, sound chimes fire on the right events, restored agents skip the matrix spawn animation, hook installer preserves third-party hooks, settings persist across webview reload, sub-agent permission timer fires, layout editor enter/paint/save/exit smoke.
 
-### `@area:teams`
+### @area:teams
 
 Lead and teammate tool routing in both inline and tmux team modes, internal and external.
 
-### `@area:matrix`
+### @area:matrix
 
 Every spawn permutation (internal vs external origin × basic vs inline-teammate vs tmux-teammate mode) re-verified against the heuristic JSONL-polling path with the hook server disabled. Confirms the polling-based detection produces the same agent state as the hook-driven path.
 
-### `@area:standalone`
+### @area:standalone
 
 The `npx pixel-agents` CLI path: hook-driven lifecycle propagates from the local server into the browser SPA via the single `/ws` WebSocket endpoint.
 
@@ -74,7 +78,7 @@ mock-claude is a fixture; real Claude's JSONL has edge cases the mock doesn't:
 - Use a session with a large pasted image (multi-MB base64 user message) - confirm the "Possible format issue" warning doesn't false-fire and tool tracking still works.
 - Test with one MCP server installed - confirm `mcp_progress` records don't break tool status.
 
-### `npx pixel-agents` standalone
+### npx pixel-agents standalone
 
 E2E covers Chrome via Playwright; verify other browsers + real workflow:
 

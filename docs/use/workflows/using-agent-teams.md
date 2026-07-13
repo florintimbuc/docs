@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Using Agent Teams
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/workflows/using-agent-teams.md).
+:::
+
 Claude Code's Agent Teams feature spawns persistent teammates from a lead session. Pixel Agents visualizes them as full characters in the office, color-grouped with the lead, doing their own work in parallel.
 
 For the conceptual model, see [Agent Teams (Learn)](/learn/agent-teams). For the underlying interface, see [TeamProvider reference](/reference/teamprovider).

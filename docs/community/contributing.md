@@ -4,6 +4,10 @@ sidebar_position: 1
 
 # Contributing
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/community/contributing.md).
+:::
+
 Pixel Agents is open source under MIT. Contributions welcome. This page is a brief on-site landing; the authoritative guide lives in the repo.
 
 ## The canonical guide

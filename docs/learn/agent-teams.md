@@ -4,6 +4,10 @@ sidebar_position: 6
 
 # Agent teams
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/learn/agent-teams.md).
+:::
+
 Some AI coding CLIs let one agent spawn a *persistent* helper that lives across multiple turns. Claude's Agent Teams feature is the only example that ships today. Pixel Agents has a first-class concept for this: a **team** is a Lead and one or more **Teammates**, each rendered on the canvas as a full agent with its own character, seat, and lifecycle.
 
 This page explains what teams are, how they differ from the ephemeral sub-agents you have probably already seen, and why the abstraction is opt-in at the provider level rather than baked into the server. The action steps for adding team support to a new provider live in [Build → Provider extensions](/build/providers/teamprovider-extension). The exhaustive interface reference lives in [Reference → TeamProvider](/reference/teamprovider).

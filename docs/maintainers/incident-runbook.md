@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Incident Runbook
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/maintainers/incident-runbook.md).
+:::
+
 > **Audience:** Maintainers responding to a production issue, CI break, or security report.
 
 The most common incidents:

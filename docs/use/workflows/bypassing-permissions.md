@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Bypassing permissions safely
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/workflows/bypassing-permissions.md).
+:::
+
 Claude Code supports a `--dangerously-skip-permissions` flag that suppresses every permission prompt. Pixel Agents has a UI toggle (per-agent at spawn time) and a corresponding `LaunchAgent.bypassPermissions` protocol field that uses it.
 
 This page explains when it's reasonable to enable, when it isn't, and what guardrails exist.
@@ -64,7 +68,7 @@ The session is detected as external. There's no UI distinction in the office bet
 | Action | Without bypass | With bypass |
 |---|---|---|
 | Bash tool starts | Reading/typing animation | Same |
-| Permission prompt fires | Amber "..." bubble | No bubble (no prompt fired) |
+| Permission prompt fires | "..." bubble | No bubble (no prompt fired) |
 | Tool completes | Status returns to idle | Same |
 
 The visual signals around "is this agent waiting" change: if you toggle bypass on, you'll never see permission bubbles for that agent. Idle bubbles still fire normally for text-only turn ends.

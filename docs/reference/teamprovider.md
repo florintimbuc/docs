@@ -4,6 +4,10 @@ sidebar_position: 7
 
 # TeamProvider Reference
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/teamprovider.md).
+:::
+
 Optional extension on [HookProvider](./hookprovider) for CLIs that support the Lead + Teammates pattern. Today only Claude Code's Agent Teams uses it. Other CLIs do not set `HookProvider.team` and no team-gated code runs for them.
 
 Source of truth: `core/src/teamProvider.ts:13-66`.
@@ -52,7 +56,7 @@ export interface TeamProvider {
 
 ## Fields
 
-### `providerId`
+### providerId
 
 ```ts
 providerId: string;
@@ -60,7 +64,7 @@ providerId: string;
 
 CLI identifier (e.g. `'claude'`, `'codex'`). Used in log lines so multi-provider hosts can disambiguate.
 
-### `teammateSpawnTools`
+### teammateSpawnTools
 
 ```ts
 teammateSpawnTools: ReadonlySet<string>;
@@ -70,7 +74,7 @@ Tool names that **can** spawn persistent teammates. Fast-path gate only: the run
 
 Claude: `new Set(['Agent'])`. The `Agent` tool spawns a teammate when called with `run_in_background: true`, and a within-turn subagent otherwise.
 
-### `withinTurnSubagentTools`
+### withinTurnSubagentTools
 
 ```ts
 withinTurnSubagentTools: ReadonlySet<string>;
@@ -80,7 +84,7 @@ Tool names that spawn **ephemeral**, within-turn subagents. These appear as nega
 
 Claude: `new Set(['Task'])`. Optionally also `Agent` (without `run_in_background`).
 
-### `isTeammateSpawnCall`
+### isTeammateSpawnCall
 
 ```ts
 isTeammateSpawnCall(toolName: string, toolInput: Record<string, unknown>): boolean;
@@ -99,7 +103,7 @@ isTeammateSpawnCall(toolName, toolInput) {
 }
 ```
 
-### `extractTeammateNameFromEvent`
+### extractTeammateNameFromEvent
 
 ```ts
 extractTeammateNameFromEvent(event: Record<string, unknown>): string | undefined;
@@ -111,7 +115,7 @@ Why pre-normalization: the normalized `AgentEvent` does not carry teammate ident
 
 Claude: reads the `agent_type` field. Returns `undefined` if not present.
 
-### `discoverTeammates`
+### discoverTeammates
 
 ```ts
 discoverTeammates(
@@ -126,7 +130,7 @@ The returned `jsonlPath` is an opaque transcript handle the caller hands back to
 
 Claude: scans `~/.claude/projects/<project-hash>/subagents/<lead-session-id>/` for `.jsonl` files, extracts the teammate's `agent_type` from the first line of each.
 
-### `getTeamMetadataForSession`
+### getTeamMetadataForSession
 
 ```ts
 getTeamMetadataForSession(jsonlPath: string): { teamName: string; agentName?: string } | null;
@@ -139,7 +143,7 @@ Return team metadata for a session if it participates in a team. Provider decide
 
 Claude: reads `~/.claude/teams/<teamName>/sessions/<sessionId>.json` (sidecar files). If the file exists, returns the team's name and the role.
 
-### `extractTeamMetadataFromRecord`
+### extractTeamMetadataFromRecord
 
 ```ts
 extractTeamMetadataFromRecord(
@@ -153,7 +157,7 @@ Same return shape as `getTeamMetadataForSession`, but called per-record rather t
 
 Claude: pulls `record.team` if present (a header line embeds it on team-managed sessions).
 
-### `getTeamMembers`
+### getTeamMembers
 
 ```ts
 getTeamMembers(teamName: string): Set<string> | null;

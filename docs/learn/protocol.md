@@ -4,6 +4,10 @@ sidebar_position: 8
 
 # Protocol
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/learn/protocol.md).
+:::
+
 Pixel Agents has a single wire contract that every component agrees on. The VS Code adapter, the standalone CLI, the React canvas, and any future third-party client all read from and write to the same shape. That shape is declared in an AsyncAPI 3.0 document and the TypeScript types that the rest of the codebase uses are auto-generated from it.
 
 This page explains why the contract exists at all, what it covers, how the generation pipeline works, and how authorization differs between embedded (VS Code) and standalone modes.

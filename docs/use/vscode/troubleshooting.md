@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # VS Code troubleshooting
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/vscode/troubleshooting.md).
+:::
+
 Symptom-driven debug guide for the VS Code extension specifically. For standalone-specific issues, see [Standalone troubleshooting](/use/standalone/troubleshooting). For the cross-surface FAQ-style guide, see [Use troubleshooting](/use/troubleshooting).
 
 ## Extension won't activate

@@ -4,6 +4,10 @@ sidebar_position: 1
 
 # CLI Reference
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/cli.md).
+:::
+
 The `pixel-agents` CLI starts a standalone Pixel Agents server. This page is the lookup reference for every flag, every exit code, every environment variable that affects CLI behavior.
 
 For the use-case walkthrough, see [/use/standalone/running-the-server.md](/use/standalone/running-the-server). For the source, see `server/src/cli.ts:1-175`.
@@ -19,7 +23,7 @@ Both invocations run the same code. `npx` downloads the package on first use; th
 
 ## Options
 
-### `--port <number>`, `-p <number>`
+### --port \<number>, -p \<number>
 
 | Default | `3100` |
 |---|---|
@@ -33,7 +37,7 @@ Pass `--port 0` to let the OS assign a free port. The actual port appears in the
 
 Source: `server/src/cli.ts:36-39`.
 
-### `--host <string>`
+### --host \<string>
 
 | Default | `127.0.0.1` |
 |---|---|
@@ -47,7 +51,7 @@ If you need network access, run behind a reverse proxy that handles auth, or use
 
 Source: `server/src/cli.ts:40-43`.
 
-### `--help`
+### --help
 
 Print help and exit with code 0.
 

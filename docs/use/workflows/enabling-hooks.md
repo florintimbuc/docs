@@ -4,6 +4,10 @@ sidebar_position: 1
 
 # Enabling hooks
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/workflows/enabling-hooks.md).
+:::
+
 Hooks turn Pixel Agents from "watches your transcripts and infers" into "receives every event instantly." If you're using Claude Code, enable hooks. Almost every issue you might run into has hooks as the first-line fix.
 
 For the conceptual reasoning, see [Hooks vs heuristic](/learn/hooks-vs-heuristic). For the per-event mapping, see [Hooks coverage](/reference/hooks-coverage).
@@ -132,7 +136,7 @@ If `server.json` doesn't exist or its PID is dead, the script silently drops the
 
 This means: hooks only deliver when a Pixel Agents server is running. If you close VS Code and run `claude` in a terminal, no hook events flow (Pixel Agents isn't listening). When you reopen the panel (or run `npx pixel-agents`), hooks resume.
 
-## Hooks delivery and the `hookDelivered` flag
+## Hooks delivery and the hookDelivered flag
 
 When a hook event is successfully delivered for an agent, that agent's `hookDelivered` flag flips to true. From that point on, the heuristic timers (`PERMISSION_TIMER_DELAY_MS = 7000`, `TEXT_IDLE_DELAY_MS = 5000`) are suppressed for that agent.
 

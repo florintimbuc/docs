@@ -4,6 +4,10 @@ sidebar_position: 8
 
 # State Management Reference
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/state-management.md).
+:::
+
 The server tier owns all agent state and lifecycle. Five classes carry the load: `AgentRuntime`, `AgentStateStore`, `SessionRouter`, `DismissalTracker`, `FileStateAdapter`. `HookEventHandler` ties them together. This page documents the public surface of each.
 
 For the why behind the centralization, see [ADR-0004 AgentRuntime](/decisions/agentruntime-as-shared-lifecycle-core) and [ADR-0005 Namespaced persistence](/decisions/namespaced-persistence).
@@ -110,19 +114,19 @@ The constructor (lines 72-177):
 
 ### Methods
 
-#### `handleHookEvent(providerId: string, event: Record<string, unknown>): void`
+#### handleHookEvent(providerId: string, event: Record\<string, unknown>): void
 
 Route an incoming hook event to the hook handler. Called by the HTTP route in `server/src/cli.ts:93-95` and by the VS Code adapter's equivalent wiring.
 
-#### `registerAgent(sessionId: string, agentId: number): void`
+#### registerAgent(sessionId: string, agentId: number): void
 
 Register a session→agent mapping. Flushes any buffered events for this session.
 
-#### `unregisterAgent(sessionId: string): void`
+#### unregisterAgent(sessionId: string): void
 
 Remove a session mapping (called on agent removal / terminal close).
 
-#### `removeAgent(id: number): void`
+#### removeAgent(id: number): void
 
 Tear down an agent: stop JSONL poll timer, close file watcher, cancel waiting + permission timers, fire `onAgentRemoved` to the adapter, delete from store, persist.
 
@@ -143,31 +147,31 @@ removeAgent(id: number): void {
 }
 ```
 
-#### `removeTeammate(teammateId: number, source: string): void`
+#### removeTeammate(teammateId: number, source: string): void
 
 Remove a single teammate. Dismisses the JSONL file (so it isn't re-adopted), unregisters the session, fires the adapter callback, and removes the agent.
 
-#### `removeTeammates(leadId: number): void`
+#### removeTeammates(leadId: number): void
 
 Remove all teammates whose `leadAgentId === leadId`. Called when the lead agent is closed.
 
-#### `startProjectScan(projectDir, onAgentCreated?)`
+#### startProjectScan(projectDir, onAgentCreated?)
 
 Start project-level scanning for a directory. Delegates to `ensureProjectScan` in `fileWatcher.ts`.
 
-#### `startExternalScanning(projectDir)`
+#### startExternalScanning(projectDir)
 
 Start external session scanning (detects sessions from other terminals). Idempotent: `if (this.externalScanTimer) return;`.
 
-#### `startStaleCheck()`
+#### startStaleCheck()
 
 Start the 30-second stale check that removes external agents whose JSONL files no longer exist. Idempotent.
 
-#### `restoreExternalAgents()`
+#### restoreExternalAgents()
 
 On standalone startup, recreate external agents from the adapter's `loadAgents()` snapshot. Only external agents are restorable (no terminal to rebind). VS Code does its own restore in `agentManager.ts`.
 
-#### `dispose()`
+#### dispose()
 
 Tear down everything: hook handler, three scanners (project/external/stale), and every agent via `removeAgent`. Called on shutdown (`server/src/cli.ts:156-160`).
 
@@ -434,7 +438,7 @@ private static readonly SUPPORTED_PROTOCOL_VERSION = 1;
 
 A provider declaring a different `protocolVersion` is logged once at construction (line 72-78) and all subsequent events are dropped silently (line 132-134). Bumping this constant is the formal way to break the `AgentEvent` shape.
 
-### Effect on `hookDelivered`
+### Effect on hookDelivered
 
 When a hook event is successfully dispatched to a known agent, the handler sets `agent.hookDelivered = true`. This flag suppresses the heuristic permission and text-idle timers in `timerManager.ts` (constants `PERMISSION_TIMER_DELAY_MS = 7000` and `TEXT_IDLE_DELAY_MS = 5000` at `server/src/constants.ts:13-17`). See [Hooks vs heuristic](/learn/hooks-vs-heuristic) for the design rationale.
 

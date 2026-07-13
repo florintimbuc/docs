@@ -4,6 +4,10 @@ sidebar_position: 6
 
 # HookProvider Reference
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/hookprovider.md).
+:::
+
 `HookProvider` is the interface every supported AI coding CLI implements. It's the single normalization boundary between provider-specific JSON (Claude's snake_case, hypothetical Copilot's camelCase, etc.) and the rest of the system, which sees only the normalized [`AgentEvent`](./protocol/agent-events) union.
 
 Defined in `core/src/provider.ts:60-128`. Today only one provider ships - see [the Claude reference implementation](#claude-reference-implementation) at the bottom of this page.
@@ -58,7 +62,7 @@ The header note explains the scope (`core/src/provider.ts:1-8`):
 
 ## Required fields
 
-### `kind`
+### kind
 
 ```ts
 readonly kind: 'hook';
@@ -66,7 +70,7 @@ readonly kind: 'hook';
 
 Literal discriminator. Reserves space for `FileProvider` / `StreamProvider` once a real second provider lands (`core/src/provider.ts:130-131`).
 
-### `id`
+### id
 
 ```ts
 readonly id: string;
@@ -74,7 +78,7 @@ readonly id: string;
 
 Stable identifier - must match the URL fragment used in `POST /api/hooks/:providerId` (validated against the regex `^[a-z0-9-]+$` in `server/src/httpServer.ts:113`). Claude uses `'claude'`.
 
-### `displayName`
+### displayName
 
 ```ts
 readonly displayName: string;
@@ -82,7 +86,7 @@ readonly displayName: string;
 
 Human-readable name shown in UI and logs.
 
-### `protocolVersion`
+### protocolVersion
 
 ```ts
 readonly protocolVersion: number;
@@ -101,7 +105,7 @@ private static readonly SUPPORTED_PROTOCOL_VERSION = 1;
 
 If a provider declares an unsupported value, the handler logs a warning on construction and silently drops every event (`server/src/hookEventHandler.ts:72-78, 132-134`). See [errors.md](./errors).
 
-### `normalizeHookEvent`
+### normalizeHookEvent
 
 ```ts
 normalizeHookEvent(raw: Record<string, unknown>): {
@@ -120,7 +124,7 @@ The downstream handler (`server/src/hookEventHandler.ts:140-142`) treats this as
 
 A few exceptions to that boundary: `transcriptPath`, `cwd` (for external-session adoption) and `agent_type` (for teammate routing) are read from the raw event after normalization because `AgentEvent` doesn't capture all of them (`server/src/hookEventHandler.ts:135-142`).
 
-### `installHooks` / `uninstallHooks` / `areHooksInstalled`
+### installHooks / uninstallHooks / areHooksInstalled
 
 ```ts
 installHooks(serverUrl: string, authToken: string): Promise<void>;
@@ -134,7 +138,7 @@ Hook lifecycle. `installHooks` writes the per-CLI hook scripts (Claude: edits `~
 
 These are all async to allow file or subprocess work. Claude's installer is synchronous internally and wraps with `Promise.resolve()` (`server/src/providers/hook/claude/claude.ts:237-251`).
 
-### `formatToolStatus`
+### formatToolStatus
 
 ```ts
 formatToolStatus(toolName: string, input?: unknown): string;
@@ -144,7 +148,7 @@ formatToolStatus(toolName: string, input?: unknown): string;
 
 Produces the human-readable status string shown on the character (`"Reading foo.ts"`, `"Running: npm test"`). Used both by hook-driven status updates (`server/src/hookEventHandler.ts:397`) and JSONL-driven ones. The webview never tries to format tool descriptions itself - that lives in the provider.
 
-### `permissionExemptTools`
+### permissionExemptTools
 
 ```ts
 readonly permissionExemptTools: ReadonlySet<string>;
@@ -156,7 +160,7 @@ Tools that don't trigger permission timers. The heuristic `startPermissionTimer`
 
 For Claude: `Task`, `Agent`, `AskUserQuestion`.
 
-### `subagentToolNames`
+### subagentToolNames
 
 ```ts
 readonly subagentToolNames: ReadonlySet<string>;
@@ -168,7 +172,7 @@ Tools that spawn sub-agent characters. Sent to the client in [`providerCapabilit
 
 For Claude: `Task`, `Agent`.
 
-### `readingTools`
+### readingTools
 
 ```ts
 readonly readingTools: ReadonlySet<string>;
@@ -180,7 +184,7 @@ Tools that should show the **reading** character animation (sprite row 5–6) in
 
 For Claude: `Read`, `Grep`, `Glob`, `WebFetch`, `WebSearch`.
 
-### `terminalNamePrefix`
+### terminalNamePrefix
 
 ```ts
 readonly terminalNamePrefix?: string;
@@ -196,7 +200,7 @@ For Claude: `CLAUDE_TERMINAL_NAME_PREFIX` from `server/src/providers/hook/claude
 
 These power the heuristic mode that activates when hooks aren't installed or `hookDelivered` is false on an agent.
 
-### `getSessionDirs`
+### getSessionDirs
 
 ```ts
 getSessionDirs?(workspacePath: string): string[];
@@ -208,7 +212,7 @@ getSessionDirs?(workspacePath: string): string[];
 
 Claude's implementation (`server/src/providers/hook/claude/claude.ts:71-94`) returns `~/.claude/projects/<workspace-path-with-dashes>` with a case-insensitive Windows fallback for drive letter casing.
 
-### `getAllSessionRoots`
+### getAllSessionRoots
 
 ```ts
 getAllSessionRoots?(): string[];
@@ -218,7 +222,7 @@ getAllSessionRoots?(): string[];
 
 Claude returns `[~/.claude/projects]` (`server/src/providers/hook/claude/claude.ts:108-110`).
 
-### `sessionFilePattern`
+### sessionFilePattern
 
 ```ts
 readonly sessionFilePattern?: string;
@@ -226,7 +230,7 @@ readonly sessionFilePattern?: string;
 
 `core/src/provider.ts:108-109`. Glob pattern for session files. Claude: `'*.jsonl'`.
 
-### `parseTranscriptLine`
+### parseTranscriptLine
 
 ```ts
 parseTranscriptLine?(line: string): AgentEvent | null;
@@ -234,7 +238,7 @@ parseTranscriptLine?(line: string): AgentEvent | null;
 
 `core/src/provider.ts:110-111`. Parses one line of a transcript file into an `AgentEvent`. Used by the JSONL polling fallback. For Claude this is the body of `server/src/transcriptParser.ts`. Note: in the current Claude provider, this hook is not directly wired through the `parseTranscriptLine` field - the transcriptParser module handles parsing internally using the same `formatToolStatus` and capability sets.
 
-### `buildLaunchCommand`
+### buildLaunchCommand
 
 ```ts
 buildLaunchCommand?(
@@ -266,7 +270,7 @@ function buildLaunchCommand(
 
 ## Optional fields - team extension
 
-### `team`
+### team
 
 ```ts
 readonly team?: TeamProvider;

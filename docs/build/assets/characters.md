@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Characters
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/assets/characters.md).
+:::
+
 Character sprites are the visual identity of agents. Six pre-colored palettes ship bundled. Runtime hue shifting expands the visual variety to dozens of distinguishable characters.
 
 For the consumer use case (using a custom character pack), see [external assets > character packs](/use/workflows/external-assets). For the asset system overview, see [Assets overview](./overview).
@@ -96,7 +100,7 @@ Tips:
 
 - Use transparent background. Alpha threshold is 2; anything below becomes `''` in SpriteData.
 - For semi-transparent pixels (smoke effects, ghosts), use 8-bit alpha. Pixel Agents preserves them as `'#RRGGBBAA'`.
-- Keep the silhouette consistent across frames. Walking should swing arms; typing should bring arms forward; reading should pose with a notebook.
+- Keep the silhouette consistent across frames. Walking should swing arms; typing should bring arms forward; reading should pose with a piece of paper.
 - Stay within the 16x32 bounds. Pixels outside are clipped at PNG load time.
 
 ## Hue shifting
@@ -178,7 +182,7 @@ Sub-agents are drawn at a slightly smaller scale (the "subtask" visual cue). Tea
 ## What the character can't show
 
 - **Facial expressions.** 16x32 is too small for expressive faces. Mood is conveyed by animation (walking, typing, sitting still).
-- **Equipment that changes per task.** The character holds a notebook in read frames and types on a keyboard in type frames, but you can't equip them with task-specific objects.
+- **Equipment that changes per task.** The character holds a piece of paper in read frames, but you can't equip them with task-specific objects.
 - **Costumes.** The same character looks the same regardless of which CLI is driving them. A future change could allow per-provider character themes.
 
 ## Replacing characters via external assets
@@ -223,4 +227,4 @@ The cache is a `Map<string, OffscreenCanvas>` per zoom level in the webview. Oth
 - [Furniture](./furniture) - the other major asset family.
 - [SpriteData reference](/reference/protocol/schemas)
 - [The office (concept)](/learn/the-office) - how characters appear in the UI.
-- [Concepts > palette and hue shift](/learn/concepts#palette-and-hue-shift)
+- [Concepts > skin and hue shift](/learn/concepts#skin-and-hue-shift)

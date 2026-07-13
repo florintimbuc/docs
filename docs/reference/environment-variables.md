@@ -4,9 +4,13 @@ sidebar_position: 11
 
 # Environment Variables Reference
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/environment-variables.md).
+:::
+
 Environment variables that affect Pixel Agents behavior. Short list - the project deliberately uses very few env vars in favor of explicit settings.
 
-## `PIXEL_AGENTS_DEBUG`
+## PIXEL_AGENTS_DEBUG
 
 | Default | unset (debug ON) |
 |---|---|
@@ -68,7 +72,7 @@ PIXEL_AGENTS_DEBUG=0 npx pixel-agents
 
 Or export persistently in your shell rc.
 
-## `PIXEL_AGENTS_VERSION`
+## PIXEL_AGENTS_VERSION
 
 | Default | unset (becomes `''`) |
 |---|---|

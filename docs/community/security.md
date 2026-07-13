@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Security Policy
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/community/security.md).
+:::
+
 For security vulnerabilities, follow the process in the repo's [SECURITY.md](https://github.com/pixel-agents-hq/pixel-agents/blob/main/SECURITY.md). This page summarizes for the docs site.
 
 ## TL;DR

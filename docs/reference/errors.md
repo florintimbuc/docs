@@ -4,6 +4,10 @@ sidebar_position: 10
 
 # Errors Reference
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/errors.md).
+:::
+
 Error codes, HTTP statuses, and WebSocket close codes the server produces. Use this as a lookup when diagnosing a connection or hook failure.
 
 ## WebSocket close codes
@@ -35,11 +39,11 @@ Client recovery: re-read `~/.pixel-agents/server.json` (the server may have rota
 
 ## HTTP status codes
 
-### `200 OK`
+### 200 OK
 
 Successful hook event POST or health check.
 
-### `401 Unauthorized`
+### 401 Unauthorized
 
 Bearer auth failed on a `/api/hooks/:providerId` POST. See `server/src/httpServer.ts:208-217`:
 
@@ -59,7 +63,7 @@ function bearerAuth(expectedToken: string) {
 
 Hooks **always** require Bearer auth (in both embedded and standalone modes) because hook scripts may be invoked by any process that can read `~/.pixel-agents/server.json`.
 
-### `400 Bad Request`
+### 400 Bad Request
 
 The Fastify route schema rejects the request before reaching the handler. Causes:
 
@@ -67,7 +71,7 @@ The Fastify route schema rejects the request before reaching the handler. Causes
 - Body is malformed JSON.
 - Body exceeds `MAX_HOOK_BODY_SIZE` limit.
 
-### `404 Not Found`
+### 404 Not Found
 
 In standalone mode, unknown HTTP routes serve `index.html` (HTML5 history fallback, `server/src/httpServer.ts:69-71`):
 
@@ -101,7 +105,7 @@ Hook events larger than 64KB are rejected with `413 Payload Too Large`. In pract
 
 The server silently ignores some classes of input rather than returning an error:
 
-### Missing `session_id` or `hook_event_name`
+### Missing session_id or hook_event_name
 
 ```ts
 // server/src/httpServer.ts:123-125
@@ -144,7 +148,7 @@ socket.on('message', (data: Buffer | string) => {
 
 JSON parse failures are swallowed. The WebSocket stays open.
 
-### Unknown `ClientMessage.type`
+### Unknown ClientMessage.type
 
 ```ts
 // server/src/clientMessageHandler.ts:125-128
@@ -158,7 +162,7 @@ Unknown or unsupported message types fall through to `default` and do nothing.
 
 ## Validation rules
 
-### `providerId` path parameter
+### providerId path parameter
 
 ```ts
 // server/src/httpServer.ts:110-116

@@ -5,6 +5,10 @@ title: Overview
 
 # Standalone overview
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/standalone/overview.md).
+:::
+
 Pixel Agents without VS Code. A local server serves a browser SPA that
 visualizes your Claude sessions.
 

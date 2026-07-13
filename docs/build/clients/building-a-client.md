@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Building a client
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/clients/building-a-client.md).
+:::
+
 This is a hands-on walkthrough that takes you from zero to a working WebSocket client of the Pixel Agents server in roughly fifteen minutes. By the end you will have a connection that receives the full state bundle, processes live agent broadcasts, and sends back a command.
 
 We walk the same five-step flow in four languages: **TypeScript**, **Python**, **Swift**, and **Kotlin**. Pick whichever fits your host. The protocol is identical in all of them.
@@ -64,7 +68,7 @@ Open a WebSocket to `ws://127.0.0.1:<port>/ws`.
 
 If unsure which mode the user is running, sending the Bearer header in both cases is safe. The standalone WebSocket route ignores the header when `embedded` is false.
 
-### Step 3 - Send `webviewReady`
+### Step 3 - Send webviewReady
 
 The server does not push state until it sees `{ "type": "webviewReady" }`. The handler at `server/src/clientMessageHandler.ts:132-214` (`handleWebviewReady`) replies in canonical order:
 
@@ -190,7 +194,7 @@ socket.on('close', (code, reason) => {
 
 If `socket.on('close')` fires with code `4001`, your Bearer token is stale or wrong. Re-read `server.json` and reconnect. See [discovery and auth](./discovery-and-auth).
 
-## Python (3.11+ with `websockets`)
+## Python (3.11+ with websockets)
 
 ```python
 import asyncio

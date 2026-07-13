@@ -4,6 +4,10 @@ sidebar_position: 6
 
 # Showcase
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/community/showcase.md).
+:::
+
 Community projects, asset packs, alternate clients, and integrations. This page is curated; submissions are welcome via PR.
 
 > **Maintainer note:** This page intentionally launches with submission slots and a few stub categories rather than fabricated entries. As the community ships real assets, alt clients, and integrations, replace each slot with a real entry. Don't backfill with imaginary projects.

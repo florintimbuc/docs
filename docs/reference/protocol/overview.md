@@ -5,6 +5,10 @@ title: Overview
 
 # Protocol Overview
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/protocol/overview.md).
+:::
+
 The Pixel Agents protocol is a single-channel bidirectional WebSocket contract between the server and any UI client (the bundled VS Code webview, the standalone browser SPA, or any third-party client that speaks JSON).
 
 The protocol is provider-agnostic: a [`HookProvider`](../hookprovider) implementation turns raw CLI events into normalized [`AgentEvent`s](./agent-events), and the server translates those into [`ServerMessage`](./server-messages) broadcasts. Clients send [`ClientMessage`](./client-messages) commands.
