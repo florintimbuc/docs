@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # Bring your own assets
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/workflows/external-assets.md).
+:::
+
 Pixel Agents ships with a small bundled asset set: 6 character palettes, 7 floor patterns, an auto-tile wall set, and a basic furniture catalog. For the full visual experience, point Pixel Agents at one or more external asset directories.
 
 

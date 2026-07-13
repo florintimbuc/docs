@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # Furniture
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/assets/furniture.md).
+:::
+
 The furniture catalog is the largest asset family. Every desk, chair, monitor, plant, mug, painting, and bookshelf is a furniture entry. Each item ships as its own folder under `webview-ui/public/assets/furniture/<ITEM_ID>/` with a `manifest.json` plus one or more PNG sprites. The runtime scans these folders at startup and flattens them into the in-memory catalog the editor uses.
 
 For the consumer guide (using third-party furniture), see [external assets](/use/workflows/external-assets). For the catalog message shape sent on the wire (after flattening), see [protocol schemas](/reference/protocol/schemas).

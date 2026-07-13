@@ -2,7 +2,11 @@
 sidebar_position: 4
 ---
 
-# `StateAdapter` Contract
+# StateAdapter Contract
+
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/adapters/state-adapter.md).
+:::
 
 The interface adapters implement to persist agent state and user settings. Defined at `core/src/adapter.ts:15-28`.
 
@@ -41,7 +45,7 @@ For the rationale, see [Decision 0005: Namespaced persistence](/decisions/namesp
 
 ## Method semantics
 
-### `loadAgents()`
+### loadAgents()
 
 Returns the array of `PersistedAgent` (from `core/src/schemas.ts:8-22`). Empty array if there's no state to load. Should never throw - return empty on error.
 
@@ -64,23 +68,23 @@ export interface PersistedAgent {
 }
 ```
 
-### `saveAgents(agents)`
+### saveAgents(agents)
 
 Persists the full agent list. Atomic preferred - write to a tmp file, rename to the final path. `FileStateAdapter` uses tmp+rename (`server/src/fileStateAdapter.ts:121-132`).
 
 Called from `AgentStateStore.persist()`, which is itself called from `AgentRuntime.removeAgent()` and other lifecycle transitions. Don't call it from your own host code unless you're sure no other path will.
 
-### `loadSeats()`
+### loadSeats()
 
 Returns the map of agent ID (as string) to seat assignment. Empty object if none.
 
 Today the seat record carries `palette`, `hueShift`, and `seatId`. All three are optional, but in practice they're all set together. See `core/src/messages.ts:89-93` for the message-shape equivalent `AgentSeatMeta`.
 
-### `saveSeats(seats)`
+### saveSeats(seats)
 
 Persists the full seat map. Called from `handleClientMessage` when a `saveAgentSeats` message arrives (`server/src/clientMessageHandler.ts:64-69`).
 
-### `getSetting(key, defaultValue)`
+### getSetting(key, defaultValue)
 
 Reads a settings key, returns the default if not set. The runtime uses fully-qualified keys like `'pixel-agents.hooksEnabled'`.
 
@@ -102,11 +106,11 @@ getSetting<T>(key: string, defaultValue: T): T {
 
 Unknown keys (not in `ADAPTER_SETTING_KEYS`) return the default and are silently ignored on writes. The known list lives in `server/src/configPersistence.ts`.
 
-### `setSetting(key, value)`
+### setSetting(key, value)
 
 Writes a settings key. The runtime calls this when the user toggles something in the UI (e.g. `setHooksEnabled` arrives → adapter records it).
 
-## The bundled implementation: `FileStateAdapter`
+## The bundled implementation: FileStateAdapter
 
 Most adapters should compose `FileStateAdapter` rather than implementing `StateAdapter` from scratch. It lives in `server/` (not `core/`) because it does file I/O - see [Decision 0001](/decisions/four-package-split).
 

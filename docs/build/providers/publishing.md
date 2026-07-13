@@ -4,6 +4,10 @@ sidebar_position: 5
 
 # Publishing a provider
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/providers/publishing.md).
+:::
+
 You finished writing a provider and the tests pass. This page covers the contribution flow: where the registry lives today, the naming and semver rules, the hook-script bundling requirement, and the license.
 
 Read this after [Adding a provider](/build/providers/adding-a-provider) and [Testing your provider](/build/providers/testing-your-provider).

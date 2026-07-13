@@ -5,6 +5,10 @@ title: Overview
 
 # VS Code overview
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/vscode/overview.md).
+:::
+
 The VS Code extension is the original Pixel Agents surface. This page is the full feature tour. For installation, see [Install](/start/install); for the 5-minute path, see [Quickstart: VS Code](/start/quickstart-vscode).
 
 ## The panel

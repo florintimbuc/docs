@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # Discovery and auth
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/clients/discovery-and-auth.md).
+:::
+
 Before a client can connect, it has to find the server. Before the server accepts certain requests, it has to know the client is allowed. Both problems are solved by a tiny on-disk file at `~/.pixel-agents/server.json` and a Bearer token that lives inside it.
 
 This page explains the file, the auth flow, the differences between embedded mode (VS Code) and standalone mode (CLI), and what to do when your auth fails.
@@ -210,7 +214,7 @@ The token in `server.json` does not match what the server expects. This usually 
 
 **Recovery:** re-read `server.json`, get the fresh token, retry the POST. Do not retry with the stale token.
 
-### WebSocket close `4001 'unauthorized'`
+### WebSocket close 4001 'unauthorized'
 
 The Bearer header on the upgrade did not match. This is the same root cause as above: stale token.
 

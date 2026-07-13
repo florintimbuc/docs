@@ -5,6 +5,10 @@ title: Overview
 
 # Clients overview
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/clients/overview.md).
+:::
+
 A **Client** is anything that renders the Pixel Agents office and speaks the AsyncAPI protocol over a transport the server understands. Today the repo ships two clients:
 
 - the bundled VS Code webview (postMessage transport, bridged by the extension host)

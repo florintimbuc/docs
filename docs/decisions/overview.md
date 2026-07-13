@@ -5,6 +5,10 @@ title: Overview
 
 # Architecture Decision Records
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/decisions/overview.md).
+:::
+
 This section captures **Architecture Decision Records (ADRs)**: short, dated, opinionated documents that record significant architectural decisions and the context that produced them.
 
 ADRs are not changelog entries, design documents, or specifications. They sit between those: they answer the question *"why is this part of the system shaped the way it is?"* with enough context that a contributor reading the codebase in two years can reconstruct the trade-off without having to ask anyone.

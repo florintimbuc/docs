@@ -5,6 +5,10 @@ title: Overview
 
 # For Maintainers
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/maintainers/overview.md).
+:::
+
 > **Audience:** Pixel Agents maintainers and prospective maintainers. These pages are public but audience-flagged. End users won't typically need them.
 
 Pixel Agents has a ~7.7k-star GitHub repo and tens of thousands of installs across the VS Code Marketplace, Open VSX, and npm. Maintenance is mostly: triage incoming PRs and issues, review for quality, cut releases, respond to security reports, and keep CI honest.

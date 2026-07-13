@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Connection lifecycle
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/clients/connection-lifecycle.md).
+:::
+
 A Pixel Agents client connection has six phases: **discover, connect, ready, bundle, steady-state, disconnect**. This page walks through each one, defines the resync contract, and tells you how to handle a server that restarts mid-session.
 
 If you have not read [discovery and auth](./discovery-and-auth) yet, do that first. This page assumes you can already find the server and present a Bearer token if needed.
@@ -85,7 +89,7 @@ app.get('/ws', { websocket: true }, (socket, request) => {
 
 On success, the WebSocket transitions to `OPEN` and the server starts forwarding events from the `AgentStateStore` (`server/src/httpServer.ts:150-202`). Note that broadcasts from the store before you send `webviewReady` will still arrive at your socket - the listeners are attached on connect. The intended pattern is to send `webviewReady` immediately on `onopen` so you get the initial bundle before any stray broadcasts confuse your handler.
 
-## Phase 3 - Send `webviewReady`
+## Phase 3 - Send webviewReady
 
 Send `{ "type": "webviewReady" }`. This is a single-shot message; you should send it exactly once per connection (and again after each reconnect).
 

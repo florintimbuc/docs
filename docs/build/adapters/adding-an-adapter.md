@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Adding an Adapter
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/adapters/adding-an-adapter.md).
+:::
+
 This is the step-by-step for wiring Pixel Agents into a new IDE host. The current draft uses a hypothetical "JetBrains" adapter as the example. The same pattern applies to Zed, custom Electron shells, or any other host with a terminal API and a webview-like surface.
 
 For background, see [Adapters overview](./overview) and [Decision 0001: Four-package split](/decisions/four-package-split).

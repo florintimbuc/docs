@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # TeamProvider extension
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/providers/teamprovider-extension.md).
+:::
+
 This is an optional extension to a `HookProvider`. Skip this page entirely if your CLI does not have a "spawn a persistent background teammate" feature.
 
 This page is separate from [Adding a provider](/build/providers/adding-a-provider) because most CLIs do not have teams. The base `HookProvider` already covers ephemeral sub-agents (Claude's `Task` tool, similar concepts in other CLIs). `TeamProvider` is only for the rarer pattern of long-lived teammates that survive across many turns.

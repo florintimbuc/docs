@@ -5,6 +5,10 @@ title: Overview
 
 # Asset system overview
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/assets/overview.md).
+:::
+
 Pixel Agents renders the office from four asset families: **characters**, **floor tiles**, **wall tiles**, and **furniture**. All four are PNG-based, parsed server-side via `pngjs` into the `SpriteData` shape (`string[][]` of hex color strings) before being broadcast to clients.
 
 This section documents the format of each family. For the consumer-side workflow (adding an external pack), see [/use/workflows/external-assets.md](/use/workflows/external-assets).

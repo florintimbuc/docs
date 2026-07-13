@@ -4,6 +4,10 @@ sidebar_position: 7
 
 # Architecture
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/learn/architecture.md).
+:::
+
 Pixel Agents is intentionally split into four packages with sharp boundaries. Two of them have no runtime code at all. One owns all the lifecycle and state. The other two are integrations: one for hosts (today only VS Code), one for clients (today only the React canvas). This page walks through what each package owns, why, and how a hook event becomes a sprite move on the canvas.
 
 If you only remember one thing: the **same server runtime** runs in both VS Code and standalone modes. The thing that changes is the transport (postMessage vs WebSocket) and where the assets live (VS Code asset URI vs `dist/`). Everything else is identical.
@@ -52,7 +56,7 @@ graph LR
 
 Arrows are import direction. `core/` depends on nothing. `server/` depends on `core/`. `adapters/` depends on `core/` and `server/`. `webview-ui/` depends on `core/` only (it talks to `server/` over the wire, not by import).
 
-### `core/`: types and contracts
+### core/: types and contracts
 
 `core/` has no runtime behavior. Every export from `core/src/index.ts:4-27` is a `type` export or a constant. The package contains:
 
@@ -65,7 +69,7 @@ Arrows are import direction. `core/` depends on nothing. `server/` depends on `c
 
 The lack of runtime here is deliberate. A future Java client or a Python integration script consumes `core/asyncapi.yaml` directly and never depends on Node. The TypeScript artifact in `core/src/messages.ts` is a convenience for the rest of the monorepo.
 
-### `server/`: runtime
+### server/: runtime
 
 `server/` is where everything happens. It is a Node.js package that runs identically in VS Code (started from the extension activation) and standalone (`node server/dist/cli.js`). The major pieces:
 
@@ -79,7 +83,7 @@ The lack of runtime here is deliberate. A future Java client or a Python integra
 
 The boundary that matters: **`server/` knows about `core/` but knows nothing about VS Code**. Importing `vscode` from `server/` is a build error.
 
-### `adapters/`: host integrations
+### adapters/: host integrations
 
 `adapters/` is where integration with a specific host environment lives. Today the only adapter is `adapters/vscode/`:
 
@@ -90,7 +94,7 @@ The boundary that matters: **`server/` knows about `core/` but knows nothing abo
 
 A second adapter (JetBrains, Neovim, browser-only) would be a sibling directory with the same shape: an entry point, a transport implementation, a terminal adapter implementation if it has terminals, and a state adapter implementation if the host has its own persistence.
 
-### `webview-ui/`: React SPA
+### webview-ui/: React SPA
 
 `webview-ui/` is a React 19 + Vite app. It is the *client*, not the *server*. It does not import anything from `server/`. It imports types from `core/` only. It talks to the server over `MessageTransport`, which under the hood is either `vscode.postMessage` (embedded) or a WebSocket (standalone).
 

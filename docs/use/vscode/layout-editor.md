@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # Layout editor
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/vscode/layout-editor.md).
+:::
+
 The layout editor lets you design your office: paint floor tiles, place furniture, put up walls, expand the grid. Everything saves to `~/.pixel-agents/layout.json` and syncs across windows.
 
 The editor is the same in VS Code and standalone. This page applies to both.

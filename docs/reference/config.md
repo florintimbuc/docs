@@ -2,7 +2,11 @@
 sidebar_position: 2
 ---
 
-# `~/.pixel-agents/config.json` schema
+# ~/.pixel-agents/config.json schema
+
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/config.md).
+:::
 
 The shared config file. Persists per-host settings under namespace sections plus a top-level external asset directory list. Atomic writes via tmp+rename.
 
@@ -58,7 +62,7 @@ const DEFAULT_ADAPTER_SETTINGS: AdapterSettings = {
 
 ## Field-by-field reference
 
-### `vscode.soundEnabled` / `standalone.soundEnabled`
+### vscode.soundEnabled / standalone.soundEnabled
 
 | Type | boolean |
 |---|---|
@@ -67,7 +71,7 @@ const DEFAULT_ADAPTER_SETTINGS: AdapterSettings = {
 
 When true, plays the ascending two-note chime when an agent enters the waiting state. Web Audio API. AudioContext is unlocked on first canvas mousedown.
 
-### `vscode.lastSeenVersion` / `standalone.lastSeenVersion`
+### vscode.lastSeenVersion / standalone.lastSeenVersion
 
 | Type | string |
 |---|---|
@@ -78,7 +82,7 @@ Tracks which Pixel Agents version the user has acknowledged. Used to show "What'
 
 Format: semver string (`'1.3.0'`).
 
-### `vscode.alwaysShowLabels` / `standalone.alwaysShowLabels`
+### vscode.alwaysShowLabels / standalone.alwaysShowLabels
 
 | Type | boolean |
 |---|---|
@@ -87,7 +91,7 @@ Format: semver string (`'1.3.0'`).
 
 When true, the activity label above each character is shown permanently. When false (default), labels only show on hover or when the character is selected.
 
-### `vscode.watchAllSessions` / `standalone.watchAllSessions`
+### vscode.watchAllSessions / standalone.watchAllSessions
 
 | Type | boolean |
 |---|---|
@@ -102,7 +106,7 @@ Active session filters:
 
 Sources at `server/src/constants.ts:33-36`.
 
-### `vscode.hooksEnabled` / `standalone.hooksEnabled`
+### vscode.hooksEnabled / standalone.hooksEnabled
 
 | Type | boolean |
 |---|---|
@@ -113,7 +117,7 @@ When true, the active `HookProvider` is asked to install its hooks (for Claude: 
 
 On change, the runtime's `hooksEnabled` ref is updated and the `onSetHooksEnabled` side effect fires to actually install/uninstall.
 
-### `vscode.hooksInfoShown` / `standalone.hooksInfoShown`
+### vscode.hooksInfoShown / standalone.hooksInfoShown
 
 | Type | boolean |
 |---|---|
@@ -122,7 +126,7 @@ On change, the runtime's `hooksEnabled` ref is updated and the `onSetHooksEnable
 
 Tracks whether the user has dismissed the hooks-explanation info modal. Used to avoid showing the same modal repeatedly.
 
-### `externalAssetDirectories`
+### externalAssetDirectories
 
 | Type | string[] |
 |---|---|

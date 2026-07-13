@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Floor tiles
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/assets/floors.md).
+:::
+
 Floors are 16x16 grayscale patterns colorized at runtime via HSBC (hue / saturation / brightness / contrast) values stored per-tile. The pattern index is encoded directly in the layout's `TileType` (so `FLOOR_3` means "this tile uses floor pattern 3").
 
 For the assets overview, see [overview](./overview). For the consumer side (custom floor packs), see [external assets](/use/workflows/external-assets). For the `TileType` enum, see [reference/layout.md > tiles](/reference/layout#tiles).

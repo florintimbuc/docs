@@ -4,13 +4,17 @@ sidebar_position: 9
 
 # Hooks Coverage
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/hooks-coverage.md).
+:::
+
 Per-provider hook-event → `AgentEvent` mapping. Today only the `claude` provider ships hooks; this page is the single canonical table for what each hook event does.
 
 Source of truth: `HookProvider.normalizeHookEvent` in `server/src/providers/hook/claude/claude.ts`. The normalized `AgentEvent` shape is at `core/src/provider.ts:14-56`.
 
 For the conceptual companion, see [Hooks vs heuristic](/learn/hooks-vs-heuristic). For the receiver, see [HookEventHandler](./state-management#hookeventhandler).
 
-## Claude Code (provider `claude`)
+## Claude Code (provider claude)
 
 Eleven hook events ship. Every successful delivery sets `agent.hookDelivered = true`, which suppresses the heuristic timers in `server/src/timerManager.ts`. Constants at `server/src/constants.ts:11-19`.
 
@@ -30,27 +34,27 @@ Eleven hook events ship. Every successful delivery sets `agent.hookDelivered = t
 
 ### Notes per event
 
-#### `UserPromptSubmit`
+#### UserPromptSubmit
 
 The first hook fired when a user submits input to Claude. Fires before any `PreToolUse` for the new turn. Used as the "agent woke up" instant signal: the heuristic mode otherwise had to wait for `agent.lastDataAt` to update and infer activity.
 
-#### `PreToolUse` and `PostToolUse`
+#### PreToolUse and PostToolUse
 
 The most frequent pair. Each tool execution produces a `PreToolUse` → optional progress → `PostToolUse`. The `tool_use_id` is the stable cross-event identifier; `tool_name` is matched against `provider.readingTools` to choose the reading vs typing animation in the webview.
 
 A tool input flag `run_in_background: true` (on `Agent` calls) marks the call as a teammate spawn; the normalized `AgentEvent.runInBackground === true`. This is what the `provider.team.isTeammateSpawnCall` predicate inspects to distinguish persistent teammates from within-turn subagents (both can use the same `Agent` tool name).
 
-#### `Stop`
+#### Stop
 
 Authoritative turn-end. The handler clears all foreground tool state as a safety measure (preserving background agent tools registered via `runInBackground`). This is the reliable signal for tool-using turns. Text-only turns may not fire `Stop` for several seconds; the `TEXT_IDLE_DELAY_MS = 5000` heuristic timer handles those.
 
-#### `PermissionRequest` vs `Notification(permission_prompt)`
+#### PermissionRequest vs Notification(permission_prompt)
 
 Both indicate a permission prompt. `PermissionRequest` is the structured event tied to a specific tool call. `Notification(permission_prompt)` is a UI-level event that may fire for non-tool prompts. The webview merges both into the same speech-bubble state.
 
 For teammates, only `Notification(permission_prompt)` reliably fires (via the lead's hook). Teammates do not fire their own `PermissionRequest` because Claude's permission flow is lead-driven.
 
-#### `SessionStart` (source breakdown)
+#### SessionStart (source breakdown)
 
 | Source | Meaning | Handler action |
 |---|---|---|
@@ -61,7 +65,7 @@ For teammates, only `Notification(permission_prompt)` reliably fires (via the le
 
 The pending-clear two-tick delay (`DismissalTracker.registerPendingClear`) gives `SessionStart` time to arrive after the preceding `SessionEnd(reason=clear)`.
 
-#### `SubagentStart` routing
+#### SubagentStart routing
 
 The routing rule:
 
@@ -77,7 +81,7 @@ if (provider.team && provider.team.isTeammateSpawnCall(toolName, toolInput)) {
 
 The lead agent's `currentHookIsTeammateSpawn` flag (set in the matching `PreToolUse`) is the authoritative source; the team predicate has to be consulted **before** `PreToolUse` completes because `PostToolUse` may arrive before `SubagentStart`. See `server/src/types.ts:42-48`.
 
-#### `SubagentStop`
+#### SubagentStop
 
 For ephemeral subagents, `reason=completed` triggers removal. For teammates, `reason=idle` means "ready for more work" (teammate persists in the office); `reason=completed` means the teammate finished its assigned task but the persistent agent stays alive.
 

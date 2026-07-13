@@ -4,6 +4,10 @@ sidebar_position: 6
 
 # Publishing an asset pack
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/assets/publishing-a-pack.md).
+:::
+
 Distribute a Pixel Agents asset pack on npm or as a plain directory. This page walks through the recommended structure, the publish flow, and the conventions that make a pack discoverable and installable.
 
 For the asset family formats, see [Characters](./characters), [Furniture](./furniture), [Floors](./floors), [Walls](./walls). For consumer-side installation, see [external assets](/use/workflows/external-assets).

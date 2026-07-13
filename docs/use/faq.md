@@ -4,6 +4,10 @@ sidebar_position: 5
 
 # FAQ
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/faq.md).
+:::
+
 Frequently asked questions about Pixel Agents. For symptom-driven debugging, see [Troubleshooting](./troubleshooting). For deeper "how do I do X" guides, see [Use](.).
 
 ## Basics
@@ -118,7 +122,7 @@ Yes, unless you have a specific reason not to. See [Enabling hooks](./workflows/
 
 Two files: `~/.claude/settings.json` (adds entries pointing at our hook script) and `~/.pixel-agents/hooks/claude-hook.js` (copies the script). Nothing else.
 
-### Can I edit `~/.claude/settings.json` manually?
+### Can I edit ~/.claude/settings.json manually?
 
 Yes. Pixel Agents merges its entries with yours. Your custom hooks for other tools are preserved.
 

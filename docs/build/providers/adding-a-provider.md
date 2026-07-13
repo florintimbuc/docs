@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Adding a provider
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/providers/adding-a-provider.md).
+:::
+
 This page walks you, step by step, from an empty directory to a working Pixel Agents provider. The example throughout is a hypothetical "Codex" provider, so you can copy the file paths and the patterns directly.
 
 Before starting, read [Providers overview](/build/providers/overview) for the conceptual model and [Reference implementation](/build/providers/reference-implementation) for the canonical Claude example. The interface you implement is at `core/src/provider.ts:60-128`.

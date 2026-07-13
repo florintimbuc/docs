@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Settings
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/vscode/settings.md).
+:::
+
 Pixel Agents has two parallel settings systems:
 
 1. **VS Code-native settings** (in `package.json contributes.configuration`): control how the extension activates. Set via the VS Code Settings UI or `settings.json`.
@@ -15,7 +19,7 @@ This page documents both. For the schema, see [Reference: VS Code settings](/ref
 
 Two keys today. Both boolean, both default `false`.
 
-### `pixel-agents.autoShowPanel`
+### pixel-agents.autoShowPanel
 
 When `true`, the Pixel Agents panel automatically opens and focuses when VS Code starts. Useful if you always want the office visible.
 
@@ -23,7 +27,7 @@ When `true`, the Pixel Agents panel automatically opens and focuses when VS Code
 |---|---|
 | Type | boolean |
 
-### `pixel-agents.autoSpawnAgent`
+### pixel-agents.autoSpawnAgent
 
 When `true`, automatically spawn one Claude Code agent when VS Code starts, but only if no agents are currently running.
 

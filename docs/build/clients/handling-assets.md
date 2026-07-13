@@ -4,6 +4,10 @@ sidebar_position: 5
 
 # Handling Assets
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/clients/handling-assets.md).
+:::
+
 How clients consume the four asset bundles, what shape they take, and how to cache them efficiently.
 
 For the message-level reference, see [server-messages.md](/reference/protocol/server-messages). For the connection sequence that delivers them, see [connection-lifecycle.md](./connection-lifecycle).
@@ -48,7 +52,7 @@ This is the format every client must understand and render. Browser clients typi
 
 The PNG → SpriteData translation happens on the server side via `pngjs`, before the bundle is broadcast. The alpha threshold is 2 - pixels with alpha less than 2 become `''`. See `core/src/schemas.ts:74-75` and the bundled asset loader (`server/src/assetLoader.ts`).
 
-## `characterSpritesLoaded`
+## characterSpritesLoaded
 
 Six pre-colored palettes, each with three direction sets. Schema in [server-messages.md](/reference/protocol/server-messages).
 
@@ -72,7 +76,7 @@ interface CharacterSpriteSet {
 
 A reasonable cache key for the bundled webview is `"palette:hueShift"`. The bundled webview's hue shift uses `adjustSprite()` from `webview-ui/src/office/colorize.ts`. Third-party clients can choose any equivalent transform.
 
-## `floorTilesLoaded`
+## floorTilesLoaded
 
 ```ts
 interface FloorTilesLoaded {
@@ -90,7 +94,7 @@ The bundled webview uses `colorize.ts` in two modes:
 
 A third-party client can choose any colorization strategy; the protocol just delivers the raw `h, s, b, c` numbers.
 
-## `wallTilesLoaded`
+## wallTilesLoaded
 
 ```ts
 interface WallTilesLoaded {
@@ -103,7 +107,7 @@ Auto-tile bitmask: 4 bits (N=1, E=2, S=4, W=8) index into the 16-piece set. The 
 
 Wall sprites are 16 wide × 32 tall - they extend 16px above the tile to give a 3D face look. Z-sort handling: walls are mixed with furniture and characters in the render pass; their `zY` is `(row + 1) * TILE_SIZE`. Only the flat base color is rendered in the tile pass; the 3D piece comes through z-sorted later.
 
-## `furnitureAssetsLoaded`
+## furnitureAssetsLoaded
 
 ```ts
 interface FurnitureAssetsLoaded {

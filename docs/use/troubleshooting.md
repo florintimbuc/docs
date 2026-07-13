@@ -4,6 +4,10 @@ sidebar_position: 6
 
 # Troubleshooting
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/troubleshooting.md).
+:::
+
 Cross-surface symptom-driven debug guide. For surface-specific guides, see [VS Code troubleshooting](./vscode/troubleshooting) and [Standalone troubleshooting](./standalone/troubleshooting). For Q&A-style answers, see [FAQ](./faq).
 
 This page groups by symptom, not by cause. Find the symptom that matches, walk through the diagnose + fix steps in order.
@@ -179,7 +183,7 @@ This page groups by symptom, not by cause. Find the symptom that matches, walk t
 - `npx pixel-agents --port 4000` (or any free port).
 - Or find the conflicting process: `lsof -i :3100` (Linux/macOS) / `netstat -ano | findstr 3100` (Windows). Stop it.
 
-## Two `npx pixel-agents` instances both think they own the server
+## Two npx pixel-agents instances both think they own the server
 
 **Symptom:** both terminals say "Server: listening on..." rather than one saying "Reusing existing server".
 

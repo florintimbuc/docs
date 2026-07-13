@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # ADR-0003: HookProvider with optional file fallback
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/decisions/0003-hookprovider-with-optional-file-fallback.md).
+:::
+
 **Status:** Accepted
 **Date:** 2026-05-26
 **Deciders:** Pixel Agents core team

@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # Standalone troubleshooting
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/standalone/troubleshooting.md).
+:::
+
 Symptom-driven fixes for `npx pixel-agents`. Each section is one problem,
 its likely cause, how to diagnose, and how to fix.
 
@@ -13,7 +17,7 @@ and protocol errors, see [/reference/errors.md](../../reference/errors).
 For the bigger picture of when fallback heuristics kick in, see
 [/learn/hooks-vs-heuristic.md](../../learn).
 
-## `npx pixel-agents` fails to start
+## npx pixel-agents fails to start
 
 Symptoms: the CLI exits within a second of starting. You see something like
 `Failed to start server: ...` followed by `Error: listen EADDRINUSE` or a
@@ -309,7 +313,7 @@ last writer wins). Hook scripts will only route to the most recently
 started server, which may not be what you want; in practice, run one
 server at a time.
 
-## `server.json` is stale (server crashed previously)
+## server.json is stale (server crashed previously)
 
 Symptoms: `npx pixel-agents` says something like "starting server" with
 no "Reusing" message, but you wonder if there's a leftover file.

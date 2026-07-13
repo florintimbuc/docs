@@ -4,6 +4,10 @@ sidebar_position: 5
 
 # Wall tiles
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/assets/walls.md).
+:::
+
 Walls use a 4-bit auto-tile bitmask system. Sixteen sprite pieces in one PNG; the runtime picks the right piece based on which cardinal neighbors are also walls.
 
 For the assets overview, see [overview.md](./overview). For consumers wanting a custom wall pack, see [external assets](/use/workflows/external-assets).

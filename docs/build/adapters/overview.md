@@ -5,6 +5,10 @@ title: Overview
 
 # Adapters
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/adapters/overview.md).
+:::
+
 An Adapter integrates the Pixel Agents runtime into a specific host environment: an IDE, an Electron shell, a container. Adapters are the only part of the codebase that touches host-specific APIs (VS Code commands, JetBrains plugin SDK, etc.). The runtime (`server/`) and the protocol (`core/`) stay host-agnostic.
 
 For the architectural reasoning, see [Decision 0001: Four-package split](/decisions/four-package-split).
@@ -34,7 +38,7 @@ Only `adapters/vscode/`.
 
 ## The interfaces an adapter implements
 
-### `StateAdapter`
+### StateAdapter
 
 Persistence boundary. Defined at `core/src/adapter.ts:15-28`:
 
@@ -53,7 +57,7 @@ Adapters can implement `StateAdapter` from scratch, but most should compose `Fil
 
 Layout persistence is intentionally **not** in this interface. Layout lives in `~/.pixel-agents/layout.json` and is handled by `server/src/layoutPersistence.ts` directly. Every adapter shares the same layout file (cross-host sync is desirable).
 
-### `ITerminalAdapter`
+### ITerminalAdapter
 
 Terminal boundary. Defined at `core/src/terminalAdapter.ts:13-16`:
 
@@ -72,7 +76,7 @@ Minimal. The runtime only uses `.name` to match terminals to agents during heuri
 
 See [terminal-adapter.md](./terminal-adapter).
 
-## Why `FileStateAdapter` lives in `server/`
+## Why FileStateAdapter lives in server/
 
 `FileStateAdapter` is the shared implementation reused by both VS Code and standalone. Putting it in `server/` lets both adapters import it without each having to reimplement file I/O.
 

@@ -2,7 +2,11 @@
 sidebar_position: 3
 ---
 
-# `ITerminalAdapter` Contract
+# ITerminalAdapter Contract
+
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/adapters/terminal-adapter.md).
+:::
 
 The interface adapters implement to expose host terminals to the runtime. Defined at `core/src/terminalAdapter.ts`.
 
@@ -85,7 +89,7 @@ The fileWatcher module accepts the adapter via a module-level setter (similar to
 
 In hook-only mode (every agent has `hookDelivered === true`), terminal adoption is mostly unnecessary because the hooks identify the session unambiguously. The adapter is still consulted for focus tracking.
 
-## What `name` actually contains
+## What name actually contains
 
 Whatever the host calls the terminal. Examples:
 

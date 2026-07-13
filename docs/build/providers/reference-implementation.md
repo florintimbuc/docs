@@ -4,6 +4,10 @@ sidebar_position: 6
 
 # Reference implementation: Claude Code
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/providers/reference-implementation.md).
+:::
+
 Reading the Claude provider end to end is the fastest path to understanding the contract. This page walks through every Claude file in reading order with line citations. When you build your own provider, return here and use Claude as the structural template.
 
 The interface itself is at `core/src/provider.ts:60-128`. Conceptual background is in [Providers overview](/build/providers/overview). The step-by-step build guide is in [Adding a provider](/build/providers/adding-a-provider).
@@ -36,7 +40,7 @@ Installed-on-user-machine output:
 ~/.claude/settings.json                # patched with hook entries
 ```
 
-## File 1: `constants.ts`
+## File 1: constants.ts
 
 The smallest file, read first to see what symbols the rest reference (`server/src/providers/hook/claude/constants.ts:1-35`):
 
@@ -69,7 +73,7 @@ The terminal name prefix is used by VS Code's adapter to match terminals to agen
 
 For the full hook coverage table see [Hooks coverage](/reference/hooks-coverage).
 
-## File 2: `claudeHookInstaller.ts`
+## File 2: claudeHookInstaller.ts
 
 Writes Claude's settings file. The interesting moves:
 
@@ -189,7 +193,7 @@ export function copyHookScript(extensionPath: string): void {
 
 The destination is `~/.pixel-agents/hooks/claude-hook.js`, mode `0700` (owner read / write / execute only). Other adapters call `copyHookScript(extensionPath)` once at startup.
 
-## File 3: `hooks/claude-hook.ts`
+## File 3: hooks/claude-hook.ts
 
 The script that runs inside Claude. Bundled by esbuild into `dist/hooks/claude-hook.js`, copied to `~/.pixel-agents/hooks/claude-hook.js`, executed by Claude via `node "<path>"`.
 
@@ -263,7 +267,7 @@ Five things to notice:
 - **2-second timeout, hard.** Claude is blocking on this hook. Slow networks must not freeze the user's editor.
 - **Bearer token from `server.json`.** The token rotates per server start. The script does not cache it.
 
-## File 4: `claude.ts`
+## File 4: claude.ts
 
 The provider object itself. Read in the order the file is laid out: helpers first, then the provider export.
 
@@ -352,7 +356,7 @@ export const claudeProvider: HookProvider = {
 
 This is the entire shape of a HookProvider. Every member maps to a section of the interface at `core/src/provider.ts:60-128`.
 
-## File 5: `claudeTeamProvider.ts`
+## File 5: claudeTeamProvider.ts
 
 Optional. Implements `TeamProvider` from `core/src/teamProvider.ts:13-66`. Full walkthrough in [TeamProvider extension](/build/providers/teamprovider-extension), the file itself is 135 lines and worth reading top to bottom. Key moves:
 

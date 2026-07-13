@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Protocol Schemas
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/protocol/schemas.md).
+:::
+
 Supporting (non-discriminated) schemas referenced by the [`ServerMessage`](./server-messages) and [`ClientMessage`](./client-messages) variants. These are not messages themselves - they live as nested types inside messages.
 
 Some shapes (notably `OfficeLayout`, `PlacedFurniture`, `FloorColor`, `FurnitureCatalogEntry`, `HookEvent`, `PersistedAgent`) are owned by the rendering / state layers and the protocol treats them as opaque objects. The authoritative definitions live in `core/src/schemas.ts`; this page links them by line number.

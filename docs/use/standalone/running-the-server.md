@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Running the server
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/use/standalone/running-the-server.md).
+:::
+
 Reference for the `npx pixel-agents` CLI: flags, ports, host binding,
 multi-window discovery, where state goes on disk, graceful shutdown, and
 hook auto-install.

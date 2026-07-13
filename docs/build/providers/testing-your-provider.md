@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Testing your provider
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/build/providers/testing-your-provider.md).
+:::
+
 A provider has three failure surfaces: the normalization function, the hook script that runs inside the CLI, and the install / uninstall flow. This page covers the test patterns for each. Use it after you have walked through [Adding a provider](/build/providers/adding-a-provider).
 
 ## Test tooling

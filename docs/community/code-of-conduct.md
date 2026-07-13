@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Code of Conduct
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/community/code-of-conduct.md).
+:::
+
 Pixel Agents follows a Code of Conduct that applies to all project spaces: GitHub repos, Discussions, issues, PRs, Discord, and any other community channel associated with the project.
 
 ## The canonical document

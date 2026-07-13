@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # ClientMessage Reference
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/reference/protocol/client-messages.md).
+:::
+
 All 18 variants of the `ClientMessage` discriminated union. Discriminator field: `type` (`core/asyncapi.yaml:137`).
 
 Every variant is cited against `core/asyncapi.yaml:LINE`. The TypeScript bindings live in `core/src/messages.ts` (auto-generated from the YAML).
@@ -38,7 +42,7 @@ The server handler dispatches on `msg.type` in `server/src/clientMessageHandler.
 
 ## Lifecycle (1)
 
-### `webviewReady`
+### webviewReady
 
 Schema: `core/asyncapi.yaml:583-590`.
 
@@ -58,7 +62,7 @@ Client signals it's ready to receive state. The server responds with the full st
 
 ## Agent actions (4)
 
-### `launchAgent`
+### launchAgent
 
 Schema: `core/asyncapi.yaml:592-604`.
 
@@ -80,7 +84,7 @@ Launch a new Claude agent in a new terminal. Standalone mode delegates to the ac
 
 **Handled by:** the VS Code adapter (which creates a `vscode.Terminal`). Standalone mode currently leaves this to the host process (no terminal to create from the server).
 
-### `focusAgent`
+### focusAgent
 
 Schema: `core/asyncapi.yaml:606-616`.
 
@@ -97,7 +101,7 @@ Focus an agent's terminal. VS Code-only.
 
 **Handled by:** the VS Code adapter (calls `terminal.show()` on the agent's `terminalRef`). Standalone falls into the default branch in `clientMessageHandler.ts:125-128` and is a no-op.
 
-### `closeAgent`
+### closeAgent
 
 Schema: `core/asyncapi.yaml:618-626`.
 
@@ -114,7 +118,7 @@ Close (dismiss) an agent. Removes the character from the office and adds the JSO
 
 **Handled by:** the adapter via `AgentRuntime.removeAgent` (`server/src/agentRuntime.ts:204-234`).
 
-### `saveAgentSeats`
+### saveAgentSeats
 
 Schema: `core/asyncapi.yaml:628-640`.
 
@@ -143,7 +147,7 @@ See [`SeatAssignment`](./schemas#seatassignment).
 
 ## Layout (3)
 
-### `saveLayout`
+### saveLayout
 
 Schema: `core/asyncapi.yaml:642-652`.
 
@@ -170,7 +174,7 @@ Save the office layout to `~/.pixel-agents/layout.json` (atomic via tmp+rename i
 
 **Handled by:** `server/src/clientMessageHandler.ts:58-62` - calls `writeLayoutToFile()`.
 
-### `exportLayout`
+### exportLayout
 
 Schema: `core/asyncapi.yaml:712-719`.
 
@@ -186,7 +190,7 @@ Trigger layout export via the host's native save dialog. Standalone has no nativ
 
 **Handled by:** the VS Code adapter (uses `vscode.window.showSaveDialog`).
 
-### `importLayout`
+### importLayout
 
 Schema: `core/asyncapi.yaml:721-728`.
 
@@ -208,7 +212,7 @@ Trigger layout import via the host's native open dialog. Standalone is a no-op.
 
 All setter messages persist via `StateAdapter.setSetting` (`core/src/adapter.ts:26`). The standalone adapter writes to the per-namespace section of `~/.pixel-agents/config.json` (see [state-management.md](../state-management#filestateadapter)).
 
-### `setSoundEnabled`
+### setSoundEnabled
 
 Schema: `core/asyncapi.yaml:654-662`.
 
@@ -225,7 +229,7 @@ Toggle notification sound preference.
 
 **Handled by:** `server/src/clientMessageHandler.ts:72-74` - `adapter.setSetting('pixel-agents.soundEnabled', ...)`.
 
-### `setLastSeenVersion`
+### setLastSeenVersion
 
 Schema: `core/asyncapi.yaml:664-672`.
 
@@ -242,7 +246,7 @@ Record the last extension version the user saw (for changelog modal logic).
 
 **Handled by:** `server/src/clientMessageHandler.ts:76-78`.
 
-### `setAlwaysShowLabels`
+### setAlwaysShowLabels
 
 Schema: `core/asyncapi.yaml:674-682`.
 
@@ -259,7 +263,7 @@ Toggle always-on character labels.
 
 **Handled by:** `server/src/clientMessageHandler.ts:80-82`.
 
-### `setHooksEnabled`
+### setHooksEnabled
 
 Schema: `core/asyncapi.yaml:684-692`.
 
@@ -280,7 +284,7 @@ Toggle hook installation. Side-effects:
 
 **Handled by:** `server/src/clientMessageHandler.ts:91-97`.
 
-### `setHooksInfoShown`
+### setHooksInfoShown
 
 Schema: `core/asyncapi.yaml:694-700`.
 
@@ -296,7 +300,7 @@ Mark the hooks info modal as dismissed. No payload other than the discriminator.
 
 **Handled by:** `server/src/clientMessageHandler.ts:99-101` - `adapter.setSetting('pixel-agents.hooksInfoShown', true)`.
 
-### `setWatchAllSessions`
+### setWatchAllSessions
 
 Schema: `core/asyncapi.yaml:702-710`.
 
@@ -317,7 +321,7 @@ Toggle "Watch All Sessions" - when on, the server adopts active sessions from an
 
 ## Workspace (1)
 
-### `openSessionsFolder`
+### openSessionsFolder
 
 Schema: `core/asyncapi.yaml:730-737`.
 
@@ -337,7 +341,7 @@ Open `~/.claude/projects` in the OS file manager. VS Code uses `vscode.env.openE
 
 ## Assets (2)
 
-### `addExternalAssetDirectory`
+### addExternalAssetDirectory
 
 Schema: `core/asyncapi.yaml:739-746`.
 
@@ -359,7 +363,7 @@ After success, the server emits [`externalAssetDirectoriesUpdated`](./server-mes
 
 **Handled by:** `server/src/clientMessageHandler.ts:103-113`.
 
-### `removeExternalAssetDirectory`
+### removeExternalAssetDirectory
 
 Schema: `core/asyncapi.yaml:748-757`.
 
@@ -385,7 +389,7 @@ After success, the server emits `externalAssetDirectoriesUpdated`.
 
 ## Diagnostics (1)
 
-### `requestDiagnostics`
+### requestDiagnostics
 
 Schema: `core/asyncapi.yaml:759-766`.
 

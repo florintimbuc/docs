@@ -4,6 +4,10 @@ sidebar_position: 5
 
 # Saved Replies
 
+:::warning[AI-generated docs]
+This document was AI-generated and may have some mistakes - we apologize for this, we're in the process of reviewing all documents. If you find any issues, we'd be thankful if you [submit an edit PR](https://github.com/pixel-agents-hq/docs/edit/main/docs/maintainers/saved-replies.md).
+:::
+
 > **Audience:** Maintainers responding to common PR / issue patterns.
 
 Ten templates. Copy-paste, lightly customize, send. Keep tone friendly; these go to humans who took time to contribute.
