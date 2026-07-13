@@ -7,7 +7,7 @@ sidebar_position: 3
 One diagram, then a paragraph per arrow. By the end you'll have the mental model needed to navigate the rest of the docs.
 
 ```mermaid
-flowchart LR
+flowchart TD
   Agent["Agent CLI<br/>(in your terminal)"]
   Hook["Hook script<br/>~/.pixel-agents/hooks/claude-hook.js"]
   JSONL["Session transcript<br/>~/.claude/projects/.../<session>.jsonl"]
